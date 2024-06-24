@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/constants/size.dart';
 import 'package:portfolio/constants/sns_links.dart';
 
+
+
 import '../constants/colors.dart';
 import 'custom_text_field.dart';
 
@@ -54,7 +56,7 @@ class ContactSection extends StatelessWidget {
             ),
             child: const CustomTextField(
               hintText: "Your message",
-              maxLines: 10,
+              maxLines: 7,
             ),
           ),
           const SizedBox(height: 20),

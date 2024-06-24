@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/colors.dart';
 import 'package:portfolio/widgets/contact_section.dart';
@@ -6,6 +7,7 @@ import 'package:portfolio/widgets/main_mobile.dart';
 import 'package:portfolio/widgets/projects_section.dart';
 import 'package:portfolio/widgets/skills_desktop.dart';
 import 'package:portfolio/widgets/skills_mobile.dart';
+
 
 
 import '../constants/size.dart';
