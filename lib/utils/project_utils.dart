@@ -51,7 +51,7 @@ webLink: 'https://github.com/Tapendra-Bista/Translation'
   ),
         ProjectUtils(
     image: 'assets/projects/shopeking.png',
-    title: 'Shopeking',
+    title: 'Shopking',
     subtitle:
         'This is an online shopping app where I work as a moderator for the user interface on a freelance project.',
 webLink: 'https://github.com/Tapendra-Bista/Shopeking'
