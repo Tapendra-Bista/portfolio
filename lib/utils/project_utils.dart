@@ -26,7 +26,7 @@ List<ProjectUtils> workProjectUtils = [
     title: 'Web TV to watch live sports',
     subtitle:
         'Web Tv is a web application where we can watch live video regarding sports.There are about 25+ channels available to watch live at any time.',
-webLink: 'https://www.webtv4u.xyz/home'
+webLink: 'https://webtv4u.vercel.app/'
   ),
   ProjectUtils(
     image: 'assets/projects/amazon.png',
