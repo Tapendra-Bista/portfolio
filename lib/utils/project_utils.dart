@@ -56,4 +56,11 @@ webLink: 'https://github.com/Tapendra-Bista/Translation'
         'This is an online shopping app where I work as a moderator for the user interface on a freelance project.',
 webLink: 'https://github.com/Tapendra-Bista/Shopeking'
   ),
+          ProjectUtils(
+    image: 'assets/projects/videoplayer.jpeg',
+    title: 'Video player',
+    subtitle:
+        'Video player made in Flutter.',
+androidLink: 'https://github.com/Tapendra-Bista/video-player'
+  ),
 ];

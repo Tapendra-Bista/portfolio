@@ -88,7 +88,7 @@ class _MainMobileState extends State<MainMobile> {
             ),
           )
             ,const SizedBox(height:13),
-            showAboutMe==true?  const Text("Hi, it's me, Tapendra Bista, and I am currently studying BSC CSIT in the 5th semester at the Amrit campus.I live in Nayabazar, Kathmandu."):const SizedBox()
+            showAboutMe==true?  const Text("Hi, it's me, Tapendra Bista, and I am currently studying BSC CSIT in the 6th semester at the Amrit campus.I live in Nayabazar, Kathmandu."):const SizedBox()
            ,const SizedBox(height:13),
         ],
       ),
