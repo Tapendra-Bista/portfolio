@@ -1,0 +1,3 @@
+   abstract   class AppStrings {
+static const String  aboutMe = """Hello, My name is Tapendra Bista, and I am a highly motivated Flutter developer who has spent many years building user-centric apps for cross-platforms. I have a proven ability to deliver innovative solutions that boost user engagement and drive business results. I am skilled in Dart for Flutter and Firebase and Node.js for the backend. I am eager to contribute to a team creating impactful mobile experiences, and I am passionate about creating mobile experiences that empower users and drive business growth.""";
+}

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/constants/constant_string.dart';
 
 import '../constants/colors.dart';
 
@@ -37,7 +38,7 @@ class _MainDesktopState extends State<MainDesktop> {
                 children: [
                   // intro message
                   const Text(
-                    "Hello,\nI'm Tapendra Bista\nMobile App Developer",
+                    "Hello,\nI'm Tapendra Bista\nFlutter Developer",
                     style: TextStyle(
                       fontSize: 25,
                       height: 1.5,
@@ -100,7 +101,7 @@ class _MainDesktopState extends State<MainDesktop> {
             ],
           ),
       const SizedBox(height:5),
-        showAboutMe==true?  const Text("Hi, it's me, Tapendra Bista, and I am currently studying BSC CSIT in the 6th semester at the Amrit campus.I live in Nayabazar, Kathmandu."):const SizedBox()
+        showAboutMe==true?  const Text(AppStrings.aboutMe):const SizedBox()
            ,const SizedBox(height:13),
         ],
       ),

@@ -15,10 +15,7 @@ const List<Map> platformItems = [
     "img": "assets/desktop_icon.png",
     "title": "Desktop Dev",
   },
-    {
-    "img": "assets/android_icon.png",
-    "title": "Kotlin Jetpack Compose",
-  },
+
 ];
 
 const List<Map> skillItems = [
@@ -31,8 +28,8 @@ const List<Map> skillItems = [
     "title": "Dart",
   },
   {
-    "img": "assets/kotlin.png",
-    "title": "Kotlin",
+    "img": "assets/python.png",
+    "title": "Python",
   },
   {
     "img": "assets/node.png",
@@ -41,6 +38,10 @@ const List<Map> skillItems = [
   {
     "img": "assets/mangoose.png",
     "title": "MongoDB",
+  },
+    {
+    "img": "assets/firebase.png",
+    "title": "Firebase",
   },
 
 ];
