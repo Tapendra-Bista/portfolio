@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'package:portfolio/utils/project_utils.dart';
 
-
 import '../constants/colors.dart';
 
 class ProjectCardWidget extends StatelessWidget {
@@ -21,7 +20,7 @@ class ProjectCardWidget extends StatelessWidget {
     return Container(
       clipBehavior: Clip.antiAlias,
       height: 307,
-      width: 260,
+      width: 270,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: CustomColor.bgLight2,
@@ -33,13 +32,13 @@ class ProjectCardWidget extends StatelessWidget {
           // project img
           Image.asset(
             project.image,
-            height: 140,
-            width: 260,
+            height: 200,
+            width: 270,
             fit: BoxFit.cover,
           ),
           // title
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 15, 12, 12),
+            padding: const EdgeInsets.fromLTRB(12, 5, 12, 0),
             child: Text(
               project.title,
               style: const TextStyle(
@@ -50,10 +49,12 @@ class ProjectCardWidget extends StatelessWidget {
           ),
           // subtitle
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 0),
             child: Text(
               project.subtitle,
+              maxLines: 1,
               style: const TextStyle(
+                overflow: TextOverflow.ellipsis,
                 fontSize: 12,
                 color: CustomColor.whiteSecondary,
               ),

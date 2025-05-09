@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:portfolio/widgets/site_logo.dart';
-
-
 import '../constants/colors.dart';
 import '../constants/nav_items.dart';
 import '../styles/style.dart';
