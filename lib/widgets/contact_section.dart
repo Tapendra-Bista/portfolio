@@ -194,17 +194,18 @@ class _ContactSectionState extends State<ContactSection> {
   Widget socialIcon(String assetPath, String url) {
     return InkWell(
       onTap: () async {
-        final uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri, webOnlyWindowName: '_blank');
-        } else {
-          debugPrint('Could not launch $url');
-        }
+        await _urlLaunchar(url: url);
       },
       child: Image.asset(
         assetPath,
         width: 28,
       ),
     );
+  }
+
+  Future<void> _urlLaunchar({required String url}) async {
+    if (!await launchUrl(Uri.parse(url))) {
+      throw Exception("Could not launch $url");
+    }
   }
 }
