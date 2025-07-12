@@ -31,14 +31,7 @@ const List<Map> skillItems = [
     "img": "assets/python.png",
     "title": "Python",
   },
-  {
-    "img": "assets/node.png",
-    "title": "Node.js",
-  },
-  {
-    "img": "assets/mangoose.png",
-    "title": "MongoDB",
-  },
+
     {
     "img": "assets/firebase.png",
     "title": "Firebase",

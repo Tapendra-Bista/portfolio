@@ -1,3 +1,15 @@
-   abstract   class AppStrings {
-static const String  aboutMe = """Hello, My name is Tapendra Bista, and I am a highly motivated Flutter developer who has spent many years building user-centric apps for cross-platforms. I have a proven ability to deliver innovative solutions that boost user engagement and drive business results. I am skilled in Dart for Flutter and Firebase and Node.js for the backend. I am eager to contribute to a team creating impactful mobile experiences, and I am passionate about creating mobile experiences that empower users and drive business growth.""";
+abstract class AppStrings {
+  static const String aboutMe =
+      """Passionate Flutter Developer with solid experience building responsive, data-driven mobile apps for Android and iOS.
+Proficient in Dio for API integration, flutter_bloc for state management, flutter_screenutil for adaptive UIs, and freezed
+for writing immutable, type-safe data models. Completed multiple freelance projects from UI design to backend integration.
+Quicklearner,self-motivated, and a strong team player committed to delivering high-quality mobile solutions. Familiar with
+Firebase, SharedPreferences, GetStorage, and feature-first architecture. Experienced in building clean UIs, handling REST
+APIs, and writing scalable, maintainable code.""";
+
+  static const String education =
+      "\n\n\nBachelor of Science in Computer Science and Information Technology (BSc CSIT) at Amrit Campus.";
+
+  static const String thankYou = "Thank you for contacting me.";
+  static const String validate = "All TextFields must be filled!";
 }

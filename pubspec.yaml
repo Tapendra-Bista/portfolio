@@ -13,15 +13,16 @@ dependencies:
     sdk: flutter
 
 
-  cupertino_icons: ^1.0.2
-  js: ^0.7.1
+  url_launcher: ^6.3.2
+  number_pagination: ^1.1.6
+  carousel_slider: ^5.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^6.0.0
 
 flutter:
 
@@ -30,5 +31,5 @@ flutter:
 
   assets:
     - assets/
-    - assets/projects/
+
 

@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:number_pagination/number_pagination.dart';
+import 'package:portfolio/utils/project_utils.dart';
+import 'package:portfolio/widgets/project_card.dart';
 
 import '../constants/colors.dart';
-import '../utils/project_utils.dart';
-import 'project_card.dart';
 
-class ProjectsSection extends StatelessWidget {
+class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key});
 
+  @override
+  State<ProjectsSection> createState() => _ProjectsSectionState();
+}
+
+class _ProjectsSectionState extends State<ProjectsSection> {
+  int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
-      padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
+      padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
       child: Column(
         children: [
           // Work projects title
@@ -24,26 +31,43 @@ class ProjectsSection extends StatelessWidget {
               color: CustomColor.whitePrimary,
             ),
           ),
-          const SizedBox(height: 50),
-          // Work projects cards
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 900),
-            child: Wrap(
-              spacing: 25,
-              runSpacing: 25,
-              children: [
-                for (int i = 0; i < workProjectUtils.length; i++)
-                  ProjectCardWidget(
-                    project: workProjectUtils[i],
-                  ),
-              ],
-            ),
+          const SizedBox(height: 20),
+          ProjectCardWidget(
+            project: workProjectUtils[_currentIndex - 1],
           ),
-          const SizedBox(height: 80),
-          // Hobby projects title
-
-          // Hobby projects cards
-
+          const SizedBox(height: 15),
+          // Work projects cards
+          NumberPagination(
+            firstPageIcon: const Icon(
+              Icons.first_page,
+              color: CustomColor.whitePrimary,
+            ),
+            previousPageIcon: const Icon(
+              Icons.keyboard_arrow_left,
+              color: CustomColor.whitePrimary,
+            ),
+            nextPageIcon: const Icon(
+              Icons.keyboard_arrow_right,
+              color: CustomColor.whitePrimary,
+            ),
+            lastPageIcon: const Icon(
+              Icons.last_page,
+              color: CustomColor.whitePrimary,
+            ),
+            selectedButtonColor: CustomColor.yellowPrimary,
+            unSelectedButtonColor: CustomColor.scaffoldBg,
+            selectedNumberColor: CustomColor.whitePrimary,
+            unSelectedNumberColor: CustomColor.whitePrimary,
+            controlButtonColor: CustomColor.yellowPrimary,
+            totalPages: workProjectUtils.length,
+            currentPage: _currentIndex,
+            visiblePagesCount: 5,
+            onPageChanged: (value) {
+              setState(() {
+                _currentIndex = value;
+              });
+            },
+          ),
         ],
       ),
     );

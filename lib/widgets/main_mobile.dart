@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/constants/constant_string.dart';
+
 import '../constants/colors.dart';
 
 class MainMobile extends StatefulWidget {
@@ -10,7 +11,7 @@ class MainMobile extends StatefulWidget {
 }
 
 class _MainMobileState extends State<MainMobile> {
-   bool showAboutMe = false;
+  bool showAboutMe = false;
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -22,7 +23,7 @@ class _MainMobileState extends State<MainMobile> {
         horizontal: 40.0,
         vertical: 30.0,
       ),
-      height: screenHeight/2,
+      height: screenHeight / 2,
       constraints: const BoxConstraints(
         minHeight: 560.0,
       ),
@@ -34,33 +35,31 @@ class _MainMobileState extends State<MainMobile> {
           ShaderMask(
             shaderCallback: (bounds) {
               return LinearGradient(colors: [
-                CustomColor.scaffoldBg.withOpacity(0.6),
-                CustomColor.scaffoldBg.withOpacity(0.6),
+                CustomColor.scaffoldBg.withValues(alpha: 0.6),
+                CustomColor.scaffoldBg.withValues(alpha: 0.6),
               ]).createShader(bounds);
             },
             blendMode: BlendMode.srcATop,
-            child:          Container(
-            width: screenWidth / 2,
-            height: screenWidth / 2,
-         
-            decoration: const BoxDecoration(
-                 color: Colors.transparent,
-                 image: DecorationImage(
-                   image: AssetImage("assets/avatar.png"),
-                   fit: BoxFit.cover,
-                 ),
-                 shape: BoxShape.rectangle,
-                 borderRadius: BorderRadius.all(
-                   Radius.circular(19.0),
-                 ),
-
+            child: Container(
+              width: screenWidth / 2,
+              height: screenWidth / 2,
+              decoration: const BoxDecoration(
+                color: Colors.transparent,
+                image: DecorationImage(
+                  image: AssetImage("assets/avatar.png"),
+                  fit: BoxFit.cover,
+                ),
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(19.0),
+                ),
+              ),
             ),
-           
-          ),
           ),
           const SizedBox(height: 30),
           // intro message
-          const Text("Hello,\nI'm Tapendra Bista\nFlutter Developer",
+          const Text(
+            "Hello,\nI'm Tapendra Bista\nFlutter Developer",
             style: TextStyle(
               fontSize: 24,
               height: 1.5,
@@ -74,23 +73,31 @@ class _MainMobileState extends State<MainMobile> {
             width: 190.0,
             child: ElevatedButton(
               onPressed: () {
-                  if (showAboutMe == false) {
-                          setState(() {
-                            showAboutMe = true;
-                          });
-                        } else {
-                          setState(() {
-                            showAboutMe = false;
-                          });
-                        }
+                if (showAboutMe == false) {
+                  setState(() {
+                    showAboutMe = true;
+                  });
+                } else {
+                  setState(() {
+                    showAboutMe = false;
+                  });
+                }
               },
-                    child:  Text(showAboutMe==true?"Close":"About Me",style: const TextStyle(color: Colors.white),),
-              
+              child: Text(
+                showAboutMe == true ? "Close" : "About Me",
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
-          )
-            ,const SizedBox(height:13),
-            showAboutMe==true?  const Text(AppStrings.aboutMe):const SizedBox()
-           ,const SizedBox(height:13),
+          ),
+          const SizedBox(height: 13),
+          showAboutMe == true
+              ? const Text(
+                  AppStrings.aboutMe,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 4,
+                )
+              : const SizedBox(),
+          const SizedBox(height: 13),
         ],
       ),
     );

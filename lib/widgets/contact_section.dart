@@ -1,18 +1,31 @@
-// ignore_for_file: avoid_web_libraries_in_flutter
-
-import 'dart:js' as js;
-
 import 'package:flutter/material.dart';
+import 'package:portfolio/constants/constant_string.dart';
 import 'package:portfolio/constants/size.dart';
 import 'package:portfolio/constants/sns_links.dart';
-
-
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants/colors.dart';
 import 'custom_text_field.dart';
 
-class ContactSection extends StatelessWidget {
+class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
+
+  @override
+  State<ContactSection> createState() => _ContactSectionState();
+}
+
+class _ContactSectionState extends State<ContactSection> {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +43,9 @@ class ContactSection extends StatelessWidget {
               color: CustomColor.whitePrimary,
             ),
           ),
-
           const SizedBox(height: 50),
+
+          // name + email
           ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 700,
@@ -40,26 +54,29 @@ class ContactSection extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 if (constraints.maxWidth >= kMinDesktopWidth) {
-                  return buildNameEmailFieldDesktop();
+                  return buildNameEmailFieldDesktop(
+                      name: nameController, email: emailController);
                 }
-
-                // else
-                return buildNameEmailFieldMobile();
+                return buildNameEmailFieldMobile(
+                    name: nameController, email: emailController);
               },
             ),
           ),
           const SizedBox(height: 15),
+
           // message
           ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 700,
             ),
-            child: const CustomTextField(
+            child: CustomTextField(
               hintText: "Your message",
+              controller: messageController,
               maxLines: 7,
             ),
           ),
           const SizedBox(height: 20),
+
           // send button
           ConstrainedBox(
             constraints: const BoxConstraints(
@@ -68,13 +85,42 @@ class ContactSection extends StatelessWidget {
             child: SizedBox(
               width: double.maxFinite,
               child: ElevatedButton(
-                onPressed: () {},
-                child:  const Text("Get in touch",style: TextStyle(color: Colors.white),),
+                onPressed: () {
+                  if (nameController.text.isNotEmpty &&
+                      emailController.text.isNotEmpty &&
+                      messageController.text.isNotEmpty) {
+                    nameController.clear();
+                    emailController.clear();
+                    messageController.clear();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: CustomColor.scaffoldBg,
+                        content: Text(
+                          AppStrings.thankYou,
+                          style: TextStyle(color: CustomColor.whitePrimary),
+                        )));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        behavior: SnackBarBehavior.floating,
+                        backgroundColor: CustomColor.scaffoldBg,
+                        content: Center(
+                          child: Text(
+                            AppStrings.validate,
+                            style: TextStyle(color: CustomColor.whitePrimary),
+                          ),
+                        )));
+                  }
+                },
+                child: const Text(
+                  "Get in touch",
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
             ),
           ),
           const SizedBox(height: 30),
 
+          // divider
           ConstrainedBox(
             constraints: const BoxConstraints(
               maxWidth: 300,
@@ -83,77 +129,39 @@ class ContactSection extends StatelessWidget {
           ),
           const SizedBox(height: 15),
 
-          // SNS icon button links
+          // social icons
           Wrap(
             spacing: 12,
             runSpacing: 12,
             alignment: WrapAlignment.center,
             children: [
-              InkWell(
-                onTap: () {
-                  js.context.callMethod('open', [SnsLinks.github]);
-                },
-                child: Image.asset(
-                  "assets/github.png",
-                  width: 28,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  js.context.callMethod('open', [SnsLinks.linkedIn]);
-                },
-                child: Image.asset(
-                  "assets/linkedin.png",
-                  width: 28,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  js.context.callMethod('open', [SnsLinks.facebook]);
-                },
-                child: Image.asset(
-                  "assets/facebook.png",
-                  width: 28,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  js.context.callMethod('open', [SnsLinks.instagram]);
-                },
-                child: Image.asset(
-                  "assets/instagram.png",
-                  width: 28,
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  js.context.callMethod('open', [SnsLinks.freelancer]);
-                },
-                child: Image.asset(
-                  "assets/freelancer.png",
-                  width: 28,
-                ),
-              ),
+              socialIcon("assets/github.png", SnsLinks.github),
+              socialIcon("assets/linkedin.png", SnsLinks.linkedIn),
+              socialIcon("assets/facebook.png", SnsLinks.facebook),
+              socialIcon("assets/instagram.png", SnsLinks.instagram),
+              socialIcon("assets/freelancer.png", SnsLinks.freelancer),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 
-  Row buildNameEmailFieldDesktop() {
-    return const Row(
+  Row buildNameEmailFieldDesktop(
+      {required TextEditingController name,
+      required TextEditingController email}) {
+    return Row(
       children: [
-        // name
         Flexible(
           child: CustomTextField(
             hintText: "Your name",
+            controller: name,
           ),
         ),
-        SizedBox(width: 15),
-        // email
+        const SizedBox(width: 15),
         Flexible(
           child: CustomTextField(
+            controller: email,
             hintText: "Your email",
           ),
         ),
@@ -161,23 +169,42 @@ class ContactSection extends StatelessWidget {
     );
   }
 
-  Column buildNameEmailFieldMobile() {
-    return const Column(
+  Column buildNameEmailFieldMobile(
+      {required TextEditingController name,
+      required TextEditingController email}) {
+    return Column(
       children: [
-        // name
         Flexible(
           child: CustomTextField(
+            controller: name,
             hintText: "Your name",
           ),
         ),
-        SizedBox(height: 15),
-        // email
+        const SizedBox(height: 15),
         Flexible(
           child: CustomTextField(
             hintText: "Your email",
+            controller: email,
           ),
         ),
       ],
+    );
+  }
+
+  Widget socialIcon(String assetPath, String url) {
+    return InkWell(
+      onTap: () async {
+        final uri = Uri.parse(url);
+        if (await canLaunchUrl(uri)) {
+          await launchUrl(uri, webOnlyWindowName: '_blank');
+        } else {
+          debugPrint('Could not launch $url');
+        }
+      },
+      child: Image.asset(
+        assetPath,
+        width: 28,
+      ),
     );
   }
 }
