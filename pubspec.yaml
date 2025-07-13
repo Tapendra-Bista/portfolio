@@ -30,6 +30,7 @@ flutter:
 
 
   assets:
-    - assets/
+    - assets/          # This line includes all images directly in the 'assets' folder
+
 
 
