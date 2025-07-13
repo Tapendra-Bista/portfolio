@@ -53,7 +53,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "f85e7f36e93d51c44d6ff7b709f4c40d
 "canvaskit/skwasm_st.wasm": "56c3973560dfcbf28ce47cebe40f3206",
 "favicon.png": "b8de4d2a472714a196a189fc8ba8abf9",
 "flutter.js": "83d881c1dbb6d6bcd6b42e274605b69c",
-"flutter_bootstrap.js": "ed47f29fda30b55dd6ec8ec742df2c71",
+"flutter_bootstrap.js": "c662c8f7d8de57d789673757c622ccdc",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
@@ -61,8 +61,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "f85e7f36e93d51c44d6ff7b709f4c40d
 "index.html": "0cc95a28e432a9d33c68893f1f4588ba",
 "/": "0cc95a28e432a9d33c68893f1f4588ba",
 "main.dart.js": "b7d389f4ad29fc1f3cf5bb31302651b9",
-"manifest.json": "e87efbccc1d5f1508b89fa98f68a80da",
-"Tapendra_Bista_Resume.pdf": "8ffb79fdd1ec418e1b184da0b3923fe4",
+"manifest.json": "e74af8957b5899dc6da961caee768ec9",
 "vercel.json": "c85542c0ab65c1716cd7d3d56ca277ee",
 "version.json": "009c9e65172e010890f7f65fde438006"};
 // The application shell files that are downloaded before a service worker can
