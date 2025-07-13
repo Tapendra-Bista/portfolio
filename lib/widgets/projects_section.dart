@@ -6,8 +6,8 @@ import 'package:portfolio/widgets/project_card.dart';
 import '../constants/colors.dart';
 
 class ProjectsSection extends StatefulWidget {
-  const ProjectsSection({super.key});
-
+  const ProjectsSection({super.key, required this.constraints});
+  final BoxConstraints constraints;
   @override
   State<ProjectsSection> createState() => _ProjectsSectionState();
 }
@@ -33,6 +33,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           ),
           const SizedBox(height: 20),
           ProjectCardWidget(
+            constraints: widget.constraints,
             project: workProjectUtils[_currentIndex - 1],
           ),
           const SizedBox(height: 15),
