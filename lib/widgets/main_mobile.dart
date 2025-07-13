@@ -91,10 +91,12 @@ class _MainMobileState extends State<MainMobile> {
           ),
           const SizedBox(height: 13),
           showAboutMe == true
-              ? const Text(
-                  AppStrings.aboutMe,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 4,
+              ? Flexible(
+                  child: Text(
+                    AppStrings.aboutMe,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 7,
+                  ),
                 )
               : const SizedBox(),
           const SizedBox(height: 13),

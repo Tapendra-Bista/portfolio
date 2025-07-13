@@ -61,7 +61,7 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             controlButtonColor: CustomColor.yellowPrimary,
             totalPages: workProjectUtils.length,
             currentPage: _currentIndex,
-            visiblePagesCount: 5,
+            visiblePagesCount: 3,
             onPageChanged: (value) {
               setState(() {
                 _currentIndex = value;
