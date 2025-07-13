@@ -18,22 +18,22 @@ List<ProjectUtils> workProjectUtils = [
   // Afriqueen
   ProjectUtils(
       images: [
-        'Screenshot_2025_0709_200748-portrait.png',
-        'Screenshot_20250709_190621-portrait.png',
-        'Screenshot_20250709_190701-portrait.png',
-        'Screenshot_20250709_190708-portrait.png',
-        'Screenshot_20250709_190720-portrait.png',
-        'Screenshot_20250709_190840-portrait.png',
-        'Screenshot_20250709_190852-portrait.png',
-        'Screenshot_20250709_190904-portrait.png',
-        'Screenshot_20250709_195101-portrait.png',
-        'Screenshot_20250709_200536-portrait.png',
-        'Screenshot_20250709_200615-portrait.png',
-        'Screenshot_20250709_200626-portrait.png',
-        'Screenshot_20250709_200815-portrait.png',
-        'Screenshot_20250709_200821-portrait.png',
-        'Screenshot_20250709_203214-portrait.png',
-        'Screenshot_20250709_203232-portrait.png'
+        'assets/Screenshot_2025_0709_200748-portrait.png',
+        'assets/Screenshot_20250709_190621-portrait.png',
+        'assets/Screenshot_20250709_190701-portrait.png',
+        'assets/Screenshot_20250709_190708-portrait.png',
+        'assets/Screenshot_20250709_190720-portrait.png',
+        'assets/Screenshot_20250709_190840-portrait.png',
+        'assets/Screenshot_20250709_190852-portrait.png',
+        'assets/Screenshot_20250709_190904-portrait.png',
+        'assets/Screenshot_20250709_195101-portrait.png',
+        'assets/Screenshot_20250709_200536-portrait.png',
+        'assets/Screenshot_20250709_200615-portrait.png',
+        'assets/Screenshot_20250709_200626-portrait.png',
+        'assets/Screenshot_20250709_200815-portrait.png',
+        'assets/Screenshot_20250709_200821-portrait.png',
+        'assets/Screenshot_20250709_203214-portrait.png',
+        'assets/Screenshot_20250709_203232-portrait.png'
       ],
       title: 'Afriqueen - A Dating Application',
       subtitle: """Client: French-based Startup (Freelance Project) 
@@ -58,17 +58,17 @@ This project showcases my ability to deliver a full-fledged social/dating platfo
   // Vpn
   ProjectUtils(
       images: [
-        "11-portrait.png",
-        "10-portrait.png",
-        "9-portrait.png",
-        "8-portrait.png",
-        "7-portrait.png",
-        "6-portrait.png",
-        "5-portrait.png",
-        "4-portrait.png",
-        "3-portrait.png",
-        "2-portrait.png",
-        "1-portrait.png",
+        "assets/11-portrait.png",
+        "assets/10-portrait.png",
+        "assets/9-portrait.png",
+        "assets/8-portrait.png",
+        "assets/7-portrait.png",
+        "assets/6-portrait.png",
+        "assets/5-portrait.png",
+        "assets/4-portrait.png",
+        "assets/3-portrait.png",
+        "assets/2-portrait.png",
+        "assets/1-portrait.png",
       ],
       title: 'VPN Application',
       subtitle: """
@@ -91,14 +91,14 @@ This project demonstrates my strength in crafting high-quality UI for utility ap
   // ShopKing
   ProjectUtils(
       images: [
-        "3705526767cb-portrait.png",
-        "932b7aeb3b10-portrait.png",
-        "56be08fe340f-portrait.png",
-        "fbce13a5524d-portrait.png",
-        "ef1e57336818-portrait.png",
-        "4ef38dff65c7-portrait.png",
-        "acc7fe5d2063-portrait.png",
-        "13ef58d8a79d-portrait.png",
+        "assets/3705526767cb-portrait.png",
+        "assets/932b7aeb3b10-portrait.png",
+        "assets/56be08fe340f-portrait.png",
+        "assets/fbce13a5524d-portrait.png",
+        "assets/ef1e57336818-portrait.png",
+        "assets/4ef38dff65c7-portrait.png",
+        "assets/acc7fe5d2063-portrait.png",
+        "assets/13ef58d8a79d-portrait.png",
       ],
       title: 'ShopKing – E-commerce Application',
       subtitle: """Client: Malaysia-based Business (Freelance Project)
@@ -122,12 +122,12 @@ This project reflects my experience in maintaining, extending, and customizing e
   // translation
   ProjectUtils(
       images: [
-        "t1-portrait.png",
-        "t2-portrait.png",
-        "t3-portrait.png",
-        "t4-portrait.png",
-        "t5-portrait.png",
-        "t6-portrait.png",
+        "assets/t1-portrait.png",
+        "assets/t2-portrait.png",
+        "assets/t3-portrait.png",
+        "assets/t4-portrait.png",
+        "assets/t5-portrait.png",
+        "assets/t6-portrait.png",
       ],
       title: 'Language Translator – Multi-Mode Translation App',
       subtitle: """Description:
@@ -150,13 +150,13 @@ This app showcases my ability to integrate MLKit, handle multimodal input/output
   // translation
   ProjectUtils(
       images: [
-        "v1.png",
-        "v2.png",
-        "v3.png",
-        "v4.png",
-        "v5.png",
-        "v6.png",
-        "v7.png",
+        "assets/v1.png",
+        "assets/v2.png",
+        "assets/v3.png",
+        "assets/v4.png",
+        "assets/v5.png",
+        "assets/v6.png",
+        "assets/v7.png",
       ],
       title: 'Video Player App – Local Media Playback',
       subtitle: """Description:
