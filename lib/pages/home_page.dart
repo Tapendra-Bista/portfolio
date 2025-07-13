@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               SizedBox(key: navbarKeys.first),
-
+              Image.asset("v1.png"),
               // MAIN
               if (constraints.maxWidth >= kMinDesktopWidth)
                 HeaderDesktop(onNavMenuTap: (int navIndex) {
