@@ -79467,7 +79467,7 @@ g=t.D
 g=A.cZ(k,A.eb(A.b([new A.bw(k,570,A.eb(A.b([A.eb(A.b([new A.bw(k,20,k,k),A.jj(A.d3(h.b,k,k,k,B.yC,k,k),k,k),new A.cB(B.mn,A.d3(h.c,24,k,k,B.S8,k,k),k)],g),B.aX,B.ac,B.aG),A.cZ(k,A.k_(A.b([A.d3(j,k,k,k,A.hN(k,k,B.is,k,k,k,k,k,k,k,k,14,k,k,k,k,k,!0,k,k,k,k,k,k,k,k),k,k),new A.bw(10,k,k,k),A.wk(k,k,A.nw(i,k,28),k,k,new A.ag3(l,a),k,k,k)],g),B.a4,B.eu),B.u,B.d1,k,k,k,k,k,B.Dj,k)],g),B.aX,B.eu,B.aG),k)],g),B.aX,B.ac,B.aG),B.bJ,k,k,new A.cY(B.d_,k,k,new A.bP(new A.al(10,10),B.r,new A.al(10,10),B.r),k,k,B.az),k,k,k,k,500)
 h=g}else h=A.aru()
 g=l.a.d.b>=800
-s=g?400:350
+s=g?400:300
 r=g?B.r:new A.al(10,10)
 q=g?B.r:new A.al(10,10)
 if(g)g=A.aru()
