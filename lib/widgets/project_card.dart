@@ -25,6 +25,7 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
   bool showInformation = false;
   @override
   Widget build(BuildContext context) {
+    (widget.constraints.maxWidth >= kMedDesktopWidth)? showInformation  = false : null;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -135,7 +136,7 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
             : SizedBox.shrink(),
         Container(
           clipBehavior: Clip.antiAlias,
-          width: 400 ,
+          width:(widget.constraints.maxWidth >= kMedDesktopWidth)? 400 :350,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10),
