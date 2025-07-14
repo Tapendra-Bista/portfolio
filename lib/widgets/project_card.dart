@@ -135,7 +135,7 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
             : SizedBox.shrink(),
         Container(
           clipBehavior: Clip.antiAlias,
-          width: 400,
+          width: (widget.constraints.maxWidth >= kMedDesktopWidth) ? 400 : 460,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(10),
