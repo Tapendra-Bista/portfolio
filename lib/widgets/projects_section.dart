@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:number_pagination/number_pagination.dart';
+import 'package:portfolio/constants/size.dart';
 import 'package:portfolio/utils/project_utils.dart';
 import 'package:portfolio/widgets/project_card.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../constants/colors.dart';
 
@@ -13,7 +14,7 @@ class ProjectsSection extends StatefulWidget {
 }
 
 class _ProjectsSectionState extends State<ProjectsSection> {
-  int _currentIndex = 1;
+  final PageController _pageController = PageController();
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -32,41 +33,35 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             ),
           ),
           const SizedBox(height: 20),
-          ProjectCardWidget(
-            constraints: widget.constraints,
-            project: workProjectUtils[_currentIndex - 1],
-          ),
-          const SizedBox(height: 15),
+
           // Work projects cards
-          NumberPagination(
-            firstPageIcon: const Icon(
-              Icons.first_page,
-              color: CustomColor.whitePrimary,
+          SizedBox(
+            height:
+                (widget.constraints.maxWidth >= kMedDesktopWidth) ? 570 : 610,
+            child: PageView.builder(
+              physics: BouncingScrollPhysics(),
+              controller:
+                  _pageController, // Crucial: Link controller to PageView
+              itemCount: workProjectUtils.length,
+              itemBuilder: (context, index) {
+                return ProjectCardWidget(
+                  constraints: widget.constraints,
+                  project: workProjectUtils[index],
+                );
+              },
             ),
-            previousPageIcon: const Icon(
-              Icons.keyboard_arrow_left,
-              color: CustomColor.whitePrimary,
-            ),
-            nextPageIcon: const Icon(
-              Icons.keyboard_arrow_right,
-              color: CustomColor.whitePrimary,
-            ),
-            lastPageIcon: const Icon(
-              Icons.last_page,
-              color: CustomColor.whitePrimary,
-            ),
-            selectedButtonColor: CustomColor.yellowPrimary,
-            unSelectedButtonColor: CustomColor.scaffoldBg,
-            selectedNumberColor: CustomColor.whitePrimary,
-            unSelectedNumberColor: CustomColor.whitePrimary,
-            controlButtonColor: CustomColor.yellowPrimary,
-            totalPages: workProjectUtils.length,
-            currentPage: _currentIndex,
-            visiblePagesCount: 3,
-            onPageChanged: (value) {
-              setState(() {
-                _currentIndex = value;
-              });
+          ),
+          const SizedBox(height: 20),
+          SmoothPageIndicator(
+            controller: _pageController, // Use the same controller here
+            count: workProjectUtils.length,
+            effect: ExpandingDotsEffect(),
+            onDotClicked: (index) {
+              _pageController.animateToPage(
+                index,
+                duration: Duration(milliseconds: 500),
+                curve: Curves.ease,
+              );
             },
           ),
         ],

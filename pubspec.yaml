@@ -14,7 +14,7 @@ dependencies:
 
 
   url_launcher: ^6.3.2
-  number_pagination: ^1.1.6
+  smooth_page_indicator: ^1.2.1
   carousel_slider: ^5.1.1
 
 dev_dependencies:
