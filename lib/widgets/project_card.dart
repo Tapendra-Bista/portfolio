@@ -153,7 +153,7 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
             mainAxisSize: MainAxisSize.max,
             children: [
               (widget.constraints.maxWidth >= kMedDesktopWidth)
-                  ? SizedBox.square()
+                  ? SizedBox.shrink()
                   : Align(
                       alignment: Alignment.topRight,
                       child: IconButton(
