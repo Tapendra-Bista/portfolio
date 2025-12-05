@@ -17,11 +17,23 @@ class SkillsMobile extends StatelessWidget {
           // platforms
           for (int i = 0; i < platformItems.length; i++)
             Container(
-              margin: const EdgeInsets.only(bottom: 5.0),
+              margin: const EdgeInsets.only(bottom: 10.0),
               width: double.maxFinite,
               decoration: BoxDecoration(
-                color: CustomColor.bgLight2,
-                borderRadius: BorderRadius.circular(5.0),
+                gradient: LinearGradient(
+                  colors: [
+                    CustomColor.bgLight2,
+                    CustomColor.bgLight1,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(15.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: CustomColor.accentBlue.withValues(alpha: 0.1),
+                    blurRadius: 10,
+                    spreadRadius: 1,
+                  ),
+                ],
               ),
               child: ListTile(
                 contentPadding: const EdgeInsets.symmetric(
@@ -32,15 +44,20 @@ class SkillsMobile extends StatelessWidget {
                   platformItems[i]["img"],
                   width: 26.0,
                 ),
-                title: Text(platformItems[i]["title"]),
+                title: Text(
+                  platformItems[i]["title"],
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           const SizedBox(height: 50),
 
           // skills
           Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
+            spacing: 12.0,
+            runSpacing: 12.0,
             alignment: WrapAlignment.center,
             children: [
               for (int i = 0; i < skillItems.length; i++)
@@ -50,7 +67,16 @@ class SkillsMobile extends StatelessWidget {
                     horizontal: 16.0,
                   ),
                   backgroundColor: CustomColor.bgLight2,
-                  label: Text(skillItems[i]["title"]),
+                  side: BorderSide(
+                    color: CustomColor.accentBlue.withValues(alpha: 0.3),
+                    width: 1,
+                  ),
+                  label: Text(
+                    skillItems[i]["title"],
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                   avatar: Image.asset(skillItems[i]["img"]),
                 ),
             ],

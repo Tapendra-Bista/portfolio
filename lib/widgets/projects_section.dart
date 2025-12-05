@@ -20,19 +20,41 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
-      padding: const EdgeInsets.fromLTRB(25, 20, 25, 0),
+      padding: EdgeInsets.fromLTRB(
+        screenWidth < 600 ? 15 : 25,
+        40,
+        screenWidth < 600 ? 15 : 25,
+        0,
+      ),
       child: Column(
         children: [
-          // Work projects title
-          const Text(
-            "Work projects",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: CustomColor.whitePrimary,
+          // Work projects title with gradient
+          ShaderMask(
+            shaderCallback: (bounds) => LinearGradient(
+              colors: CustomColor.primaryGradient,
+            ).createShader(bounds),
+            child: Text(
+              "Work projects",
+              style: TextStyle(
+                fontSize: screenWidth < 600 ? 28 : 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              "Explore my latest work",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: screenWidth < 600 ? 14 : 16,
+                color: CustomColor.whiteSecondary,
+              ),
+            ),
+          ),
+          const SizedBox(height: 30),
 
           // Work projects cards
           SizedBox(
@@ -55,7 +77,14 @@ class _ProjectsSectionState extends State<ProjectsSection> {
           SmoothPageIndicator(
             controller: _pageController, // Use the same controller here
             count: workProjectUtils.length,
-            effect: ExpandingDotsEffect(),
+            effect: ExpandingDotsEffect(
+              activeDotColor: CustomColor.accentBlue,
+              dotColor: CustomColor.whiteSecondary.withValues(alpha: 0.3),
+              dotHeight: 12,
+              dotWidth: 12,
+              expansionFactor: 3,
+              spacing: 8,
+            ),
             onDotClicked: (index) {
               _pageController.animateToPage(
                 index,

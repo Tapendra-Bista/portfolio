@@ -21,10 +21,91 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final scrollController = ScrollController();
   final List<GlobalKey> navbarKeys = List.generate(5, (index) => GlobalKey());
+  late AnimationController _skillsAnimationController;
+  late AnimationController _projectsAnimationController;
+  late Animation<double> _skillsFadeAnimation;
+  late Animation<Offset> _skillsSlideAnimation;
+  late Animation<double> _projectsFadeAnimation;
+  late Animation<Offset> _projectsSlideAnimation;
+  bool _skillsAnimated = false;
+  bool _projectsAnimated = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _skillsAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _projectsAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+
+    _skillsFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+          parent: _skillsAnimationController, curve: Curves.easeOut),
+    );
+
+    _skillsSlideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+        parent: _skillsAnimationController, curve: Curves.easeOutCubic));
+
+    _projectsFadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+          parent: _projectsAnimationController, curve: Curves.easeOut),
+    );
+
+    _projectsSlideAnimation = Tween<Offset>(
+      begin: const Offset(0, 0.3),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+        parent: _projectsAnimationController, curve: Curves.easeOutCubic));
+
+    scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    // Animate skills section when it comes into view
+    if (!_skillsAnimated && _isWidgetVisible(navbarKeys[1])) {
+      _skillsAnimationController.forward();
+      _skillsAnimated = true;
+    }
+
+    // Animate projects section when it comes into view
+    if (!_projectsAnimated && _isWidgetVisible(navbarKeys[3])) {
+      _projectsAnimationController.forward();
+      _projectsAnimated = true;
+    }
+  }
+
+  bool _isWidgetVisible(GlobalKey key) {
+    final RenderBox? renderBox =
+        key.currentContext?.findRenderObject() as RenderBox?;
+    if (renderBox == null) return false;
+
+    final position = renderBox.localToGlobal(Offset.zero);
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    return position.dy < screenHeight * 0.75;
+  }
+
+  @override
+  void dispose() {
+    scrollController.removeListener(_onScroll);
+    _skillsAnimationController.dispose();
+    _projectsAnimationController.dispose();
+    scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +128,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               SizedBox(key: navbarKeys.first),
-        
+
               // MAIN
               if (constraints.maxWidth >= kMinDesktopWidth)
                 HeaderDesktop(onNavMenuTap: (int navIndex) {
@@ -66,39 +147,62 @@ class _HomePageState extends State<HomePage> {
               else
                 const MainMobile(),
 
-              // SKILLS
-              Container(
-                key: navbarKeys[1],
-                width: screenWidth,
-                padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
-                color: CustomColor.bgLight1,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // title
-                    const Text(
-                      "What I can do",
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColor.whitePrimary,
-                      ),
+              // SKILLS with scroll animation
+              FadeTransition(
+                opacity: _skillsFadeAnimation,
+                child: SlideTransition(
+                  position: _skillsSlideAnimation,
+                  child: Container(
+                    key: navbarKeys[1],
+                    width: screenWidth,
+                    padding: EdgeInsets.fromLTRB(
+                      constraints.maxWidth < 600 ? 15 : 25,
+                      20,
+                      constraints.maxWidth < 600 ? 15 : 25,
+                      60,
                     ),
-                    const SizedBox(height: 50),
+                    color: CustomColor.bgLight1,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // title with gradient
+                        ShaderMask(
+                          shaderCallback: (bounds) => LinearGradient(
+                            colors: CustomColor.cardGradient,
+                          ).createShader(bounds),
+                          child: Text(
+                            "What I can do",
+                            style: TextStyle(
+                              fontSize: constraints.maxWidth < 600 ? 28 : 36,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 50),
 
-                    // platforms and skills
-                    if (constraints.maxWidth >= kMedDesktopWidth)
-                      const SkillsDesktop()
-                    else
-                      const SkillsMobile(),
-                  ],
+                        // platforms and skills
+                        if (constraints.maxWidth >= kMedDesktopWidth)
+                          const SkillsDesktop()
+                        else
+                          const SkillsMobile(),
+                      ],
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 30),
 
-              // PROJECTS
-              ProjectsSection( constraints: constraints,
-                key: navbarKeys[3],
+              // PROJECTS with scroll animation
+              FadeTransition(
+                opacity: _projectsFadeAnimation,
+                child: SlideTransition(
+                  position: _projectsSlideAnimation,
+                  child: ProjectsSection(
+                    constraints: constraints,
+                    key: navbarKeys[3],
+                  ),
+                ),
               ),
 
               const SizedBox(height: 30),
@@ -106,7 +210,12 @@ class _HomePageState extends State<HomePage> {
               Container(
                 key: navbarKeys[2],
                 width: screenWidth,
-                padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
+                padding: EdgeInsets.fromLTRB(
+                  constraints.maxWidth < 600 ? 15 : 25,
+                  20,
+                  constraints.maxWidth < 600 ? 15 : 25,
+                  60,
+                ),
                 color: CustomColor.bgLight1,
                 child: Padding(
                   padding: EdgeInsets.only(

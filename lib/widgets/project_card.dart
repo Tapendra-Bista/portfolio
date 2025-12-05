@@ -23,67 +23,233 @@ class ProjectCardWidget extends StatefulWidget {
 
 class _ProjectCardWidgetState extends State<ProjectCardWidget> {
   bool showInformation = false;
+  bool _isHovered = false;
+
   @override
   Widget build(BuildContext context) {
-    (widget.constraints.maxWidth >= kMedDesktopWidth)? showInformation  = false : null;
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        (widget.constraints.maxWidth >= kMedDesktopWidth)
-            ? Container(
-                clipBehavior: Clip.antiAlias,
-                width: 500,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
-                  color: CustomColor.bgLight2,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: 570,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Column(
+    (widget.constraints.maxWidth >= kMedDesktopWidth)
+        ? showInformation = false
+        : null;
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        transform: _isHovered
+            ? Matrix4.diagonal3Values(1.02, 1.02, 1.0)
+            : Matrix4.identity(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            (widget.constraints.maxWidth >= kMedDesktopWidth)
+                ? Container(
+                    clipBehavior: Clip.antiAlias,
+                    width: 500,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                      ),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          CustomColor.bgLight2,
+                          CustomColor.bgLight1,
+                        ],
+                      ),
+                      boxShadow: _isHovered
+                          ? [
+                              BoxShadow(
+                                color: CustomColor.accentBlue
+                                    .withValues(alpha: 0.3),
+                                blurRadius: 20,
+                                spreadRadius: 5,
+                              ),
+                            ]
+                          : [],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        SizedBox(
+                          height: 570,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Center(
-                                child: Text(
-                                  widget.project.title,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: CustomColor.whitePrimary,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(12, 20, 12, 0),
-                                child: Text(
-                                  widget.project.subtitle,
-                                  style: const TextStyle(
-                                    overflow: TextOverflow.ellipsis,
-                                    fontSize: 13,
-                                    color: CustomColor.whitePrimary,
+                                  Center(
+                                    child: Text(
+                                      widget.project.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: CustomColor.whitePrimary,
+                                      ),
+                                    ),
                                   ),
-                                  maxLines: 24,
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        12, 20, 12, 0),
+                                    child: Text(
+                                      widget.project.subtitle,
+                                      style: const TextStyle(
+                                        overflow: TextOverflow.ellipsis,
+                                        fontSize: 13,
+                                        color: CustomColor.whitePrimary,
+                                      ),
+                                      maxLines: 24,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                color: CustomColor.bgLight1,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 5),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "Available on:",
+                                      style: TextStyle(
+                                        color: CustomColor.yellowSecondary,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    IconButton(
+                                      onPressed: () async {
+                                        if (widget.project.projectLink !=
+                                            null) {
+                                          await _urlLaunchar(
+                                              url: widget.project.projectLink!);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                                  behavior:
+                                                      SnackBarBehavior.floating,
+                                                  backgroundColor:
+                                                      CustomColor.scaffoldBg,
+                                                  content: Center(
+                                                    child: Text(
+                                                      "Something went wrong !",
+                                                      style: TextStyle(
+                                                          color: CustomColor
+                                                              .whitePrimary),
+                                                    ),
+                                                  )));
+                                        }
+                                      },
+                                      icon: Image.asset(
+                                        "assets/github.png",
+                                        width: 28,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
+                        ),
+
+                        // // project image
+                      ],
+                    ),
+                  )
+                : SizedBox.shrink(),
+            Container(
+              clipBehavior: Clip.antiAlias,
+              width: (widget.constraints.maxWidth >= kMedDesktopWidth)
+                  ? 400
+                  : (widget.constraints.maxWidth < 400
+                      ? widget.constraints.maxWidth * 0.85
+                      : 300),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                    bottomLeft:
+                        (widget.constraints.maxWidth >= kMedDesktopWidth)
+                            ? Radius.zero
+                            : Radius.circular(20),
+                    topLeft: (widget.constraints.maxWidth >= kMedDesktopWidth)
+                        ? Radius.zero
+                        : Radius.circular(20)),
+                gradient: LinearGradient(
+                  begin: Alignment.topRight,
+                  end: Alignment.bottomLeft,
+                  colors: [
+                    CustomColor.bgLight1,
+                    CustomColor.bgLight2,
+                  ],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  (widget.constraints.maxWidth >= kMedDesktopWidth)
+                      ? SizedBox.shrink()
+                      : Align(
+                          alignment: Alignment.topRight,
+                          child: IconButton(
+                              onPressed: () => setState(() {
+                                    showInformation = !showInformation;
+                                  }),
+                              icon: Icon(showInformation
+                                  ? Icons.close_outlined
+                                  : Icons.info_outline)),
+                        ),
+                  if (showInformation)
+                    SizedBox(
+                      height: widget.constraints.maxWidth >= kMedDesktopWidth
+                          ? 570
+                          : (widget.constraints.maxWidth < 400 ? 450 : 520),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      widget.project.title,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: CustomColor.whitePrimary,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        12, 20, 12, 12),
+                                    child: Text(
+                                      widget.project.subtitle,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: CustomColor.whiteSecondary,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           Container(
                             color: CustomColor.bgLight1,
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 5),
+                                horizontal: 12, vertical: 10),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -129,144 +295,30 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
                       ),
                     ),
 
-                    // // project image
-                  ],
-                ),
-              )
-            : SizedBox.shrink(),
-        Container(
-          clipBehavior: Clip.antiAlias,
-          width:(widget.constraints.maxWidth >= kMedDesktopWidth)? 400 :300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-                bottomLeft: (widget.constraints.maxWidth >= kMedDesktopWidth)
-                    ? Radius.zero
-                    : Radius.circular(10),
-                topLeft: (widget.constraints.maxWidth >= kMedDesktopWidth)
-                    ? Radius.zero
-                    : Radius.circular(10)),
-            color: CustomColor.bgLight2,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              (widget.constraints.maxWidth >= kMedDesktopWidth)
-                  ? SizedBox.shrink()
-                  : Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          onPressed: () => setState(() {
-                                showInformation = !showInformation;
-                              }),
-                          icon: Icon(showInformation
-                              ? Icons.close_outlined
-                              : Icons.info_outline)),
+                  if (!showInformation)
+                    CarouselSlider(
+                      options: CarouselOptions(
+                        enlargeCenterPage:
+                            true, // Don't enlarge the center image
+                        // Each item takes 50% of the width
+                        height: 570, autoPlay: true,
+                      ),
+                      items: widget.project.images.map((i) {
+                        return Image.asset(
+                          i,
+                          height: double.maxFinite,
+                          width: double.maxFinite,
+                        );
+                      }).toList(),
                     ),
-              if (showInformation)
-                SizedBox(
-                  height: 570,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Center(
-                            child: Text(
-                              widget.project.title,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: CustomColor.whitePrimary,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(12, 20, 12, 0),
-                            child: Text(
-                              widget.project.subtitle,
-                              style: const TextStyle(
-                                overflow: TextOverflow.ellipsis,
-                                fontSize: 13,
-                                color: CustomColor.whiteSecondary,
-                              ),
-                              maxLines: 24,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        color: CustomColor.bgLight1,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Available on:",
-                              style: TextStyle(
-                                color: CustomColor.yellowSecondary,
-                                fontSize: 14,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            IconButton(
-                              onPressed: () async {
-                                if (widget.project.projectLink != null) {
-                                  await _urlLaunchar(
-                                      url: widget.project.projectLink!);
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          behavior: SnackBarBehavior.floating,
-                                          backgroundColor:
-                                              CustomColor.scaffoldBg,
-                                          content: Center(
-                                            child: Text(
-                                              "Something went wrong !",
-                                              style: TextStyle(
-                                                  color:
-                                                      CustomColor.whitePrimary),
-                                            ),
-                                          )));
-                                }
-                              },
-                              icon: Image.asset(
-                                "assets/github.png",
-                                width: 28,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
-              if (!showInformation)
-                CarouselSlider(
-                  options: CarouselOptions(
-                    enlargeCenterPage: true, // Don't enlarge the center image
-                    // Each item takes 50% of the width
-                    height: 570, autoPlay: true,
-                  ),
-                  items: widget.project.images.map((i) {
-                    return Image.asset(
-                      i,
-                      height: double.maxFinite,
-                      width: double.maxFinite,
-                    );
-                  }).toList(),
-                ),
-
-              // // project image
-            ],
-          ),
-        )
-      ],
+                  // // project image
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

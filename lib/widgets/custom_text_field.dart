@@ -19,12 +19,13 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       style: const TextStyle(
         color: CustomColor.scaffoldBg,
+        fontSize: 16,
       ),
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(16),
+        contentPadding: const EdgeInsets.all(20),
         filled: true,
         fillColor: CustomColor.whiteSecondary,
-        focusedBorder: getInputBorder,
+        focusedBorder: getFocusedBorder,
         enabledBorder: getInputBorder,
         border: getInputBorder,
         hintText: hintText,
@@ -37,7 +38,14 @@ class CustomTextField extends StatelessWidget {
 
   OutlineInputBorder get getInputBorder {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(15),
+      borderSide: BorderSide.none,
+    );
+  }
+
+  OutlineInputBorder get getFocusedBorder {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(15),
       borderSide: BorderSide.none,
     );
   }

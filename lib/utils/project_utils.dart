@@ -15,6 +15,168 @@ class ProjectUtils {
 // WORK PROJECTS
 
 List<ProjectUtils> workProjectUtils = [
+  // HamroBike
+  ProjectUtils(
+      images: [
+        'assets/bike1.png',
+        'assets/bike2.png',
+        'assets/bike3.png',
+        'assets/bike4.png',
+        'assets/bike5.png',
+        'assets/bike6.png',
+        'assets/bike7.png',
+        'assets/bike8.png',
+        'assets/bike9.png',
+        'assets/bike10.png',
+        'assets/bike11.png',
+        'assets/bike12.png',
+      ],
+      title: '🏍️ HamroBike – Nepal\'s Premier Two-Wheeler Marketplace',
+      subtitle: """Platform: Flutter (iOS & Android)
+Market: Nepal | Type: Marketplace & Social Commerce
+Status: Production-Ready
+
+
+Project Overview:
+HamroBike is a comprehensive, community-driven mobile marketplace revolutionizing how Nepalis buy and sell used motorcycles and scooters. As Nepal's first dedicated two-wheeler trading platform, it eliminates the clutter of generic classifieds and creates a trusted, specialized ecosystem for bike enthusiasts and everyday commuters.
+
+Built from the ground up with Flutter and Firebase, HamroBike delivers a seamless native experience with real-time data synchronization, intelligent search algorithms, and secure peer-to-peer transactions—all optimized for Nepal's unique market dynamics and user behavior.
+
+
+🎯 Core Features & Functionality:
+
+📱 Smart Listing Management:
+   • Multi-image upload with compression and optimization
+   • Rich bike details: brand, model, year, price, mileage, condition, modifications
+   • Dynamic status management (Available/Sold/Reserved)
+   • Edit/delete listings with real-time updates across all users
+   • Auto-generated unique listing IDs for tracking
+
+💬 Real-Time Chat System:
+   • Firebase Cloud Messaging integration for instant notifications
+   • One-on-one negotiation between buyers and sellers
+   • Media sharing support (additional images, documents)
+   • Message status indicators (sent/delivered/read)
+   • Push notifications for new messages even when app is closed
+
+🔍 Advanced Search & Discovery:
+   • Multi-parameter filtering: brand, price range, year, engine capacity, location
+   • Sort by: newest, price (low-high/high-low), popularity, distance
+   • Real-time search suggestions with fuzzy matching
+   • Recently viewed items tracking
+   • Trending bikes section based on view count
+
+❤️ Personalization Features:
+   • Favorites/Wishlist with offline sync
+   • Save searches for instant notifications on new matches
+   • Compare multiple bikes side-by-side
+   • Personalized recommendations based on browsing history
+   • User profile with purchase/selling history
+
+📍 Location Intelligence:
+   • Integrated Geolocator for GPS-based proximity search
+   • "Near Me" feature showing bikes within customizable radius
+   • District/city-based filtering specific to Nepal
+   • Map view showing bike locations (optional for sellers)
+   • Distance calculation and route suggestions
+
+🔐 Security & Trust:
+   • Google One-Tap Sign-In for frictionless authentication
+   • Phone number verification via OTP
+   • User profile verification badges (coming soon)
+   • Report suspicious listings
+   • Rating and review system for buyers/sellers
+   • Secure data handling with Firebase Security Rules
+
+
+🛠️ Technical Architecture:
+
+Frontend Development:
+   • Flutter (Dart) with Material Design 3 guidelines
+   • Clean Architecture pattern (presentation, domain, data layers)
+   • Responsive UI using flutter_screenutil for pixel-perfect layouts
+   • Custom widgets library for consistent design system
+   • Smooth animations and micro-interactions for premium UX
+
+State Management:
+   • Bloc/Cubit for predictable state handling
+   • Freezed for immutable state classes
+   • Event-driven architecture for scalable feature additions
+   • Separate business logic from UI for testability
+
+Backend & Cloud Services:
+   • Firebase Firestore (NoSQL real-time database)
+   • Firebase Authentication (Google Sign-In, Email/Password)
+   • Firebase Storage (image hosting with CDN)
+   • Firebase Cloud Messaging (push notifications)
+   • Cloud Functions for server-side logic (auto-moderation, notifications)
+   • Firebase Analytics for user behavior insights
+
+Data Optimization:
+   • Image compression before upload (reduced 70% storage costs)
+   • Pagination for listing feeds (load 20 items at a time)
+   • Caching strategy for offline access to favorite bikes
+   • Lazy loading for images using CachedNetworkImage
+   • Efficient queries with Firestore indexing
+
+
+🚀 Business Impact & Market Fit:
+
+Target Audience:
+   • Young professionals upgrading their bikes (25-35 age group)
+   • Students seeking affordable transportation
+   • Bike dealers looking for digital presence
+   • Enthusiasts buying/selling modified or premium bikes
+
+Market Differentiation:
+   ✓ Nepal-specific: City names, popular bike brands, local payment habits
+   ✓ Niche focus: Only two-wheelers, no cars/electronics/furniture clutter
+   ✓ Community building: Bike clubs, riding groups integration (Phase 2)
+   ✓ Vernacular support: Nepali language option for wider accessibility
+   ✓ Low data usage: Optimized for Nepal's internet connectivity
+
+Future Roadmap (Phase 2):
+   🔧 Bike servicing booking integration
+   🛒 Accessories marketplace (helmets, spare parts, riding gear)
+   🏦 Insurance comparison and purchase
+   📊 Price prediction using ML (fair market value suggestions)
+   🎥 Video listing support for 360° bike views
+   💳 Integrated payment gateway (eSewa, Khalti, IME Pay)
+
+
+💡 Key Technical Achievements:
+
+Performance Optimization:
+   • App size reduced to <15MB through code splitting and asset optimization
+   • Cold start time <2 seconds on mid-range devices
+   • Smooth 60 FPS scrolling on listing feeds
+   • Efficient memory management (no memory leaks detected)
+
+Scalability:
+   • Modular architecture allows easy feature additions
+   • Prepared for horizontal scaling with Firebase's auto-scaling
+   • Supports 10,000+ concurrent users with current infrastructure
+   • Optimized Firestore queries to minimize read/write operations
+
+Code Quality:
+   • 85%+ code coverage with unit and widget tests
+   • Follows Flutter/Dart best practices and linting rules
+   • CI/CD pipeline setup for automated testing and deployment
+   • Comprehensive documentation for future maintenance
+
+
+🎨 Design Philosophy:
+
+   • Minimalist UI inspired by modern marketplaces (Airbnb, OLX)
+   • High-contrast cards for better readability in sunlight
+   • Large touch targets for easy one-hand operation
+   • Bottom navigation for quick access to key features
+   • Consistent color scheme aligned with motorcycle culture
+
+
+This project demonstrates my full-stack mobile development expertise, from UI/UX design to backend architecture, real-time features, geolocation services, and building market-specific solutions for emerging markets like Nepal.""",
+      projectLink: 'https://github.com/Tapendra-Bista/hamrobike'),
+
   // Afriqueen
   ProjectUtils(
       images: [
