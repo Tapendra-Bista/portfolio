@@ -15,35 +15,27 @@ class _MainDesktopState extends State<MainDesktop>
   bool showAboutMe = false;
   late AnimationController _controller;
   late AnimationController _pulseController;
-  late AnimationController _rotateController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
   late Animation<double> _fadeImageAnimation;
   late Animation<double> _scaleAnimation;
   late Animation<double> _pulseAnimation;
-  late Animation<double> _rotateAnimation;
 
   @override
   void initState() {
     super.initState();
-    
+
     // Main entrance animation
     _controller = AnimationController(
       duration: const Duration(milliseconds: 1500),
       vsync: this,
     );
-    
+
     // Pulse animation for button
     _pulseController = AnimationController(
       duration: const Duration(milliseconds: 2000),
       vsync: this,
     )..repeat(reverse: true);
-    
-    // Rotate animation for avatar
-    _rotateController = AnimationController(
-      duration: const Duration(seconds: 20),
-      vsync: this,
-    )..repeat();
 
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
@@ -51,7 +43,7 @@ class _MainDesktopState extends State<MainDesktop>
         curve: const Interval(0.0, 0.5, curve: Curves.easeOut),
       ),
     );
-    
+
     _slideAnimation = Tween<Offset>(
       begin: const Offset(-0.5, 0),
       end: Offset.zero,
@@ -59,27 +51,25 @@ class _MainDesktopState extends State<MainDesktop>
       parent: _controller,
       curve: const Interval(0.0, 0.6, curve: Curves.easeOutCubic),
     ));
-    
+
     _fadeImageAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.3, 0.8, curve: Curves.easeOut),
       ),
     );
-    
+
     _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
         curve: const Interval(0.3, 0.9, curve: Curves.elasticOut),
       ),
     );
-    
+
     _pulseAnimation = Tween<double>(begin: 1.0, end: 1.05).animate(
       CurvedAnimation(parent: _pulseController, curve: Curves.easeInOut),
     );
-    
-    _rotateAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_rotateController);
-    
+
     _controller.forward();
   }
 
@@ -87,7 +77,6 @@ class _MainDesktopState extends State<MainDesktop>
   void dispose() {
     _controller.dispose();
     _pulseController.dispose();
-    _rotateController.dispose();
     super.dispose();
   }
 
@@ -154,45 +143,48 @@ class _MainDesktopState extends State<MainDesktop>
                             borderRadius: BorderRadius.circular(30),
                             boxShadow: [
                               BoxShadow(
-                                color:
-                                    CustomColor.accentBlue.withValues(alpha: 0.5),
+                                color: CustomColor.accentBlue
+                                    .withValues(alpha: 0.5),
                                 blurRadius: 20,
                                 spreadRadius: 2,
                               ),
                             ],
                           ),
                           child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              showAboutMe = !showAboutMe;
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            shadowColor: Colors.transparent,
-                            minimumSize: const Size(200, 55),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                showAboutMe ? "Close" : "About Me",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                            onPressed: () {
+                              setState(() {
+                                showAboutMe = !showAboutMe;
+                              });
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              shadowColor: Colors.transparent,
+                              minimumSize: const Size(200, 55),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  showAboutMe ? "Close" : "About Me",
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 8),
-                              Icon(
-                                showAboutMe ? Icons.close : Icons.arrow_forward,
-                                color: Colors.white,
-                              ),
-                            ],
+                                const SizedBox(width: 8),
+                                Icon(
+                                  showAboutMe
+                                      ? Icons.close
+                                      : Icons.arrow_forward,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                  )],
+                      )
+                    ],
                   ),
                 ),
               ),
@@ -201,37 +193,31 @@ class _MainDesktopState extends State<MainDesktop>
                 opacity: _fadeImageAnimation,
                 child: ScaleTransition(
                   scale: _scaleAnimation,
-                  child: RotationTransition(
-                    turns: _rotateAnimation,
-                    child: Container(
-                      width: screenWidth / 2.5,
-                      height: screenWidth / 2.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        gradient: LinearGradient(
-                          colors: CustomColor.cardGradient,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: CustomColor.accentCyan.withValues(alpha: 0.4),
-                            blurRadius: 40,
-                            spreadRadius: 5,
-                          ),
-                        ],
+                  child: Container(
+                    width: screenWidth / 2.5,
+                    height: screenWidth / 2.5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      gradient: LinearGradient(
+                        colors: CustomColor.cardGradient,
                       ),
-                      child: RotationTransition(
-                        turns: Tween<double>(begin: 1.0, end: 0.0).animate(_rotateController),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: CustomColor.bgLight2,
-                              borderRadius: BorderRadius.circular(26),
-                              image: const DecorationImage(
-                                image: AssetImage("assets/avatar.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                      boxShadow: [
+                        BoxShadow(
+                          color: CustomColor.accentCyan.withValues(alpha: 0.4),
+                          blurRadius: 40,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: CustomColor.bgLight2,
+                          borderRadius: BorderRadius.circular(26),
+                          image: const DecorationImage(
+                            image: AssetImage("assets/avatar.png"),
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),

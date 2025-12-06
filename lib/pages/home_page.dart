@@ -7,6 +7,7 @@ import 'package:portfolio/widgets/main_mobile.dart';
 import 'package:portfolio/widgets/projects_section.dart';
 import 'package:portfolio/widgets/skills_desktop.dart';
 import 'package:portfolio/widgets/skills_mobile.dart';
+import 'package:portfolio/widgets/snow_effect.dart';
 
 import '../constants/size.dart';
 import '../widgets/drawer_mobile.dart';
@@ -122,38 +123,96 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 scaffoldKey.currentState?.closeEndDrawer();
                 scrollToSection(navIndex);
               }),
-        body: SingleChildScrollView(
-          controller: scrollController,
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              SizedBox(key: navbarKeys.first),
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              controller: scrollController,
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  SizedBox(key: navbarKeys.first),
 
-              // MAIN
-              if (constraints.maxWidth >= kMinDesktopWidth)
-                HeaderDesktop(onNavMenuTap: (int navIndex) {
-                  scrollToSection(navIndex);
-                })
-              else
-                HeaderMobile(
-                  onLogoTap: () {},
-                  onMenuTap: () {
-                    scaffoldKey.currentState?.openEndDrawer();
-                  },
-                ),
+                  // MAIN
+                  if (constraints.maxWidth >= kMinDesktopWidth)
+                    HeaderDesktop(onNavMenuTap: (int navIndex) {
+                      scrollToSection(navIndex);
+                    })
+                  else
+                    HeaderMobile(
+                      onLogoTap: () {},
+                      onMenuTap: () {
+                        scaffoldKey.currentState?.openEndDrawer();
+                      },
+                    ),
 
-              if (constraints.maxWidth >= kMinDesktopWidth)
-                const MainDesktop()
-              else
-                const MainMobile(),
+                  if (constraints.maxWidth >= kMinDesktopWidth)
+                    const MainDesktop()
+                  else
+                    const MainMobile(),
 
-              // SKILLS with scroll animation
-              FadeTransition(
-                opacity: _skillsFadeAnimation,
-                child: SlideTransition(
-                  position: _skillsSlideAnimation,
-                  child: Container(
-                    key: navbarKeys[1],
+                  // SKILLS with scroll animation
+                  FadeTransition(
+                    opacity: _skillsFadeAnimation,
+                    child: SlideTransition(
+                      position: _skillsSlideAnimation,
+                      child: Container(
+                        key: navbarKeys[1],
+                        width: screenWidth,
+                        padding: EdgeInsets.fromLTRB(
+                          constraints.maxWidth < 600 ? 15 : 25,
+                          20,
+                          constraints.maxWidth < 600 ? 15 : 25,
+                          60,
+                        ),
+                        color: CustomColor.bgLight1,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            // title with gradient
+                            ShaderMask(
+                              shaderCallback: (bounds) => LinearGradient(
+                                colors: CustomColor.cardGradient,
+                              ).createShader(bounds),
+                              child: Text(
+                                "What I can do",
+                                style: TextStyle(
+                                  fontSize:
+                                      constraints.maxWidth < 600 ? 28 : 36,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 50),
+
+                            // platforms and skills
+                            if (constraints.maxWidth >= kMedDesktopWidth)
+                              const SkillsDesktop()
+                            else
+                              const SkillsMobile(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+
+                  // PROJECTS with scroll animation
+                  FadeTransition(
+                    opacity: _projectsFadeAnimation,
+                    child: SlideTransition(
+                      position: _projectsSlideAnimation,
+                      child: ProjectsSection(
+                        constraints: constraints,
+                        key: navbarKeys[3],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 30),
+                  // education
+                  Container(
+                    key: navbarKeys[2],
                     width: screenWidth,
                     padding: EdgeInsets.fromLTRB(
                       constraints.maxWidth < 600 ? 15 : 25,
@@ -162,95 +221,51 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       60,
                     ),
                     color: CustomColor.bgLight1,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // title with gradient
-                        ShaderMask(
-                          shaderCallback: (bounds) => LinearGradient(
-                            colors: CustomColor.cardGradient,
-                          ).createShader(bounds),
-                          child: Text(
-                            "What I can do",
-                            style: TextStyle(
-                              fontSize: constraints.maxWidth < 600 ? 28 : 36,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: (constraints.maxWidth >= kMedDesktopWidth)
+                              ? 240
+                              : 0),
+                      child: RichText(
+                          text: const TextSpan(
+                              text: "Education",
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: CustomColor.whitePrimary,
+                              ),
+                              children: [
+                            TextSpan(
+                              text: AppStrings.education,
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: CustomColor.whitePrimary,
+                              ),
                             ),
-                          ),
-                        ),
-                        const SizedBox(height: 50),
-
-                        // platforms and skills
-                        if (constraints.maxWidth >= kMedDesktopWidth)
-                          const SkillsDesktop()
-                        else
-                          const SkillsMobile(),
-                      ],
+                          ])),
                     ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 30),
 
-              // PROJECTS with scroll animation
-              FadeTransition(
-                opacity: _projectsFadeAnimation,
-                child: SlideTransition(
-                  position: _projectsSlideAnimation,
-                  child: ProjectsSection(
-                    constraints: constraints,
-                    key: navbarKeys[3],
+                  const SizedBox(height: 30),
+                  // CONTACT
+                  ContactSection(
+                    key: navbarKeys[4],
                   ),
-                ),
-              ),
+                  const SizedBox(height: 30),
 
-              const SizedBox(height: 30),
-              // education
-              Container(
-                key: navbarKeys[2],
-                width: screenWidth,
-                padding: EdgeInsets.fromLTRB(
-                  constraints.maxWidth < 600 ? 15 : 25,
-                  20,
-                  constraints.maxWidth < 600 ? 15 : 25,
-                  60,
-                ),
-                color: CustomColor.bgLight1,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      left:
-                          (constraints.maxWidth >= kMedDesktopWidth) ? 240 : 0),
-                  child: RichText(
-                      text: const TextSpan(
-                          text: "Education",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: CustomColor.whitePrimary,
-                          ),
-                          children: [
-                        TextSpan(
-                          text: AppStrings.education,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: CustomColor.whitePrimary,
-                          ),
-                        ),
-                      ])),
-                ),
+                  // FOOTER
+                  const Footer(),
+                ],
               ),
-
-              const SizedBox(height: 30),
-              // CONTACT
-              ContactSection(
-                key: navbarKeys[4],
+            ),
+            // Snow effect overlay
+            Positioned.fill(
+              child: SnowEffect(
+                numberOfSnowflakes:
+                    constraints.maxWidth >= kMinDesktopWidth ? 25 : 15,
+                snowColor: Colors.white.withValues(alpha: 0.3),
               ),
-              const SizedBox(height: 30),
-
-              // FOOTER
-              const Footer(),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     });
