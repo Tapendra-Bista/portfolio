@@ -15,7 +15,7 @@ class ProjectUtils {
 // WORK PROJECTS
 
 List<ProjectUtils> workProjectUtils = [
-  // HamroBike
+  // 1. HamroBike
   ProjectUtils(
       images: [
         'assets/bike1.png',
@@ -177,7 +177,277 @@ Code Quality:
 This project demonstrates my full-stack mobile development expertise, from UI/UX design to backend architecture, real-time features, geolocation services, and building market-specific solutions for emerging markets like Nepal.""",
       projectLink: 'https://github.com/Tapendra-Bista/hamrobike'),
 
-  // Afriqueen
+  // 2. Weather App
+  ProjectUtils(
+      images: [
+        "assets/weather1.png",
+        "assets/weather2.png",
+        "assets/weather3.png",
+        "assets/weather4.png",
+        "assets/weather5.png",
+        "assets/weather6.png",
+        "assets/weather7.png",
+        "assets/weather8.png",
+        "assets/weather9.png",
+        "assets/weather10.png",
+      ],
+      title: '🌤️ Weather App – Beautiful Real-Time Weather Application',
+      subtitle: """Platform: Flutter 3.10.1+ (Cross-platform)
+Type: Weather & Location-based Utility
+Status: Production-Ready
+
+
+Project Overview:
+Weather App is a feature-rich, beautifully designed weather application that provides real-time weather information with a stunning dark-themed UI. Built with Flutter and Riverpod, it delivers accurate weather data through the Open-Meteo API with an intuitive, user-friendly interface optimized for daily use.
+
+The app combines modern design principles with powerful functionality, offering multi-city support, customizable settings, and shareable weather cards—all while maintaining smooth performance across different screen sizes and devices.
+
+
+✨ Core Features & Functionality:
+
+🌍 Location & City Management:
+   • Real-time Weather Data using Open-Meteo API (no API key required)
+   • Automatic GPS Location Detection with Geolocator 13.0.4
+   • Multi-city Support – Save and manage unlimited cities
+   • Current Location Tracking – Always-available current location in city list
+   • City Reordering – Customize your city list order
+   • Persistent Selection – App remembers your last viewed city
+   • Geocoding Integration – Convert coordinates to city names automatically
+
+📊 Weather Information Display:
+   • Current Weather – Real-time temperature, conditions, feels like temperature
+   • 24-Hour Forecast – Next day with detailed hourly predictions
+   • 7-Day Forecast – Weekly weather outlook with high/low temperatures
+   • Detailed Weather Metrics:
+     - Humidity percentage and comfort level
+     - Wind speed and direction
+     - Atmospheric pressure
+     - UV index with safety recommendations
+     - Visibility range
+     - Air Quality Index (AQI)
+   • Weather Conditions – Descriptive icons and text for quick understanding
+
+⚙️ Customization & Settings:
+   • Temperature Units – Switch between Celsius (°C) and Fahrenheit (°F)
+   • Real-time Unit Conversion – Applies to all temperature displays instantly
+   • Forecast Format Options – Choose between list or chart view (future enhancement)
+   • Persistent User Preferences – Settings saved with SharedPreferences 2.3.3
+   • Version Information – Track app updates and build info
+
+🎨 User Experience:
+   • Pull to Refresh – Quick weather updates with swipe gesture
+   • Dark Theme – Eye-friendly dark mode with custom color palette
+     - Background: Deep blue-black (#1C1D26)
+     - Card Background: Dark blue (#2E3350)
+     - Primary Accent: Warm yellow (#FFC107)
+   • Responsive Design – Adapts perfectly to different screen sizes
+   • Material Design 3 – Modern UI components and interactions
+   • Smooth Animations – Delightful transitions and loading states
+   • Share Weather – Generate and share beautiful weather cards as images
+
+
+🛠️ Technical Architecture:
+
+Frontend Development:
+   • Flutter 3.10.1+ with latest Dart SDK
+   • Flutter ScreenUtil 5.9.3 for pixel-perfect responsive layouts
+   • Material Design 3 components
+   • Custom dark theme with carefully crafted color palette
+   • Reusable widget library for consistency
+
+State Management:
+   • Riverpod 2.6.1 – Robust, compile-safe state management
+   • Provider pattern for weather data
+   • City management provider for multi-location handling
+   • Settings provider for user preferences
+   • Weather notifier for real-time updates
+
+API & Networking:
+   • Dio 5.9.0 – Powerful HTTP client for API requests
+   • Open-Meteo API integration – Free, reliable weather data
+   • RESTful API architecture
+   • Error handling and retry logic
+   • Response parsing with custom data models
+   • Efficient caching strategy
+
+Location Services:
+   • Geolocator 13.0.4 – High-accuracy GPS location
+   • Geocoding 3.0.0 – Reverse geocoding for city names
+   • Location permissions handling (Android & iOS)
+   • Fallback mechanisms for location failures
+   • Current location always prioritized in city list
+
+Data Persistence:
+   • SharedPreferences 2.3.3 – Local storage for:
+     - Saved cities list
+     - Temperature unit preference
+     - Last selected city
+     - User settings
+   • Efficient data serialization/deserialization
+
+Additional Integrations:
+   • Share Plus 10.1.4 – Share weather cards via any app
+   • Path Provider 2.1.5 – File system access for image generation
+   • Intl 0.19.0 – Internationalized date/time formatting
+
+
+📁 Clean Architecture:
+
+Project Structure:
+lib/
+├── app.dart                          # App entry point with theme
+├── main.dart                         # Application initialization
+├── common/
+│   ├── constant/
+│   │   └── constant_colors.dart      # Centralized color palette
+│   ├── theme/
+│   │   └── app_theme.dart            # Theme configuration
+│   ├── utils/
+│   │   ├── temperature_converter.dart # Unit conversion utilities
+│   │   └── weather_helper.dart       # Weather-related helpers
+│   └── widgets/                      # Reusable UI components
+├── features/
+│   └── weather/
+│       ├── providers/                # State management layer
+│       │   ├── city_provider.dart
+│       │   ├── settings_provider.dart
+│       │   ├── weather_notifier.dart
+│       │   └── weather_providers.dart
+│       ├── screens/                  # UI screens
+│       │   ├── add_city_screen.dart
+│       │   ├── city_management_screen.dart
+│       │   ├── settings_screen.dart
+│       │   ├── share_screen.dart
+│       │   └── weather_home_screen.dart
+│       └── widgets/                  # Feature-specific widgets
+│           ├── daily_forecast_card.dart
+│           ├── hourly_forecast_list.dart
+│           └── weather_detail_card.dart
+├── services/
+│   ├── api/
+│   │   └── weather_api_service.dart  # API client
+│   ├── models/
+│   │   └── weather_response.dart     # Data models
+│   ├── dio_client.dart               # HTTP client setup
+│   ├── location_service.dart         # GPS services
+│   └── storage_service.dart          # Persistence layer
+
+
+💡 Key Technical Achievements:
+
+Performance Optimization:
+   • Lazy loading for forecast data
+   • Efficient image caching for weather icons
+   • Minimized API calls with smart refresh logic
+   • Smooth 60 FPS UI rendering
+   • Fast cold start time
+
+Code Quality:
+   • Type-safe state management with Riverpod
+   • Separation of concerns with clean architecture
+   • Reusable components and utilities
+   • Consistent naming conventions
+   • Error boundary implementations
+
+User Privacy:
+   • No personal data collection
+   • Location only used for weather fetching
+   • No API key exposure (Open-Meteo is free)
+   • Transparent permission requests
+
+
+🔮 Future Enhancements:
+
+Phase 2 Features:
+   ⚡ Weather alerts and push notifications
+   🗺️ Weather radar and interactive maps
+   📈 Historical weather data and trends
+   📱 Home screen widgets
+   📊 Line chart view for forecast visualization
+   🎨 Multiple theme options (light/dark/auto)
+   🌐 Internationalization (i18n) for multiple languages
+   🌈 Animated weather backgrounds
+   🔔 Severe weather warnings
+
+
+🎯 Business Value:
+
+Target Users:
+   • Daily commuters needing accurate forecasts
+   • Travelers planning trips
+   • Outdoor enthusiasts (hikers, cyclists)
+   • Weather-conscious professionals
+   • Anyone wanting beautiful, simple weather info
+
+Competitive Advantages:
+   ✓ No ads or subscriptions
+   ✓ No API costs (Open-Meteo is free)
+   ✓ Beautiful dark UI that's easy on eyes
+   ✓ Fast and lightweight (<20MB app size)
+   ✓ Works offline with cached data
+   ✓ Privacy-focused (no data tracking)
+
+
+This project demonstrates my expertise in building production-ready Flutter applications with modern state management (Riverpod), API integration, location services, responsive design, and user-centric features. It showcases clean architecture, efficient data handling, and attention to UI/UX details.""",
+      projectLink: 'https://github.com/Tapendra-Bista/weather-app'),
+
+  // 3. Translation
+  ProjectUtils(
+      images: [
+        "assets/t1-portrait.png",
+        "assets/t2-portrait.png",
+        "assets/t3-portrait.png",
+        "assets/t4-portrait.png",
+        "assets/t5-portrait.png",
+        "assets/t6-portrait.png",
+      ],
+      title: 'Language Translator – Multi-Mode Translation App',
+      subtitle: """Description:
+Language Translator is a powerful and user-friendly Flutter application designed to handle multi-language communication across various modes. It supports voice-to-text, text-to-voice, image-based translation (camera scan), and text translation between 100+ languages.
+
+The app delivers a seamless user experience with a responsive UI and smooth performance, using Bloc for scalable state management and Flutter best practices for clean architecture.
+
+Key Features:
+🎙️ Voice-to-Text Translation – Convert spoken words into text and translate them in real-time.
+🔊 Text-to-Speech (TTS) – Read translated output aloud using native TTS via flutter_tts.
+🌐 Multi-language Support – Translates between a wide range of global languages using google_mlkit_translation.
+📷 Camera Scan Translation – Use device camera to extract and translate text from images.
+💾 Save Favorites – Users can store frequently used translations locally for offline access.
+📱 Responsive Design – UI built with flutter_screenutil for consistent appearance on all devices.
+⚙️ State Management – Implemented using Bloc for separation of UI and logic layers.
+
+This app showcases my ability to integrate MLKit, handle multimodal input/output, and build high-utility mobile tools using Flutter.""",
+      projectLink: 'https://github.com/Tapendra-Bista/Translation'),
+
+  // 4. Video Player
+  ProjectUtils(
+      images: [
+        "assets/v1.png",
+        "assets/v2.png",
+        "assets/v3.png",
+        "assets/v4.png",
+        "assets/v5.png",
+        "assets/v6.png",
+        "assets/v7.png",
+      ],
+      title: 'Video Player App – Local Media Playback',
+      subtitle: """Description:
+This is a custom-built Video Player Application for local storage videos, offering a smooth and feature-rich playback experience. The app supports theme switching (light/dark), loop settings, and Picture-in-Picture (PiP) mode for multitasking.
+
+The app is built using Flutter with a focus on user experience, performance, and maintainable architecture. The core video playback functionality is powered by the Chewie package, providing a flexible and native-like video experience.
+
+Key Features:
+🎥 Local Video Playback – Plays videos stored on the user’s device with full media controls.
+🔍 Filter Functionality – Filter videos by duration, title, or other metadata for easy access.
+🌙 Light & Dark Theme Support – Seamless toggle between light and dark modes.
+🔁 Looping Option – Enable or disable continuous video playback with a simple setting.
+📺 Picture-in-Picture (PiP) Mode – Watch videos while using other apps (where supported).
+🎛️ Chewie Integration – Used for customizable and smooth video player UI.
+📱 Responsive Layout – Designed using flutter_screenutil for adaptive sizing across screen sizes.
+
+This project demonstrates my expertise in media handling, state management, and responsive UI design in Flutter, along with implementing advanced features like PiP and filtering logic.""",
+      projectLink: 'https://github.com/Tapendra-Bista/video-player'),
+  // 5. Afriqueen
   ProjectUtils(
       images: [
         'assets/Screenshot_2025_0709_200748-portrait.png',
@@ -217,7 +487,7 @@ Cloud-based Backend – Used Firebase Firestore for real-time data handling and 
 This project showcases my ability to deliver a full-fledged social/dating platform with scalable architecture, smooth user experience, and production-ready code quality.""",
       projectLink: 'https://github.com/Tapendra-Bista/projectK'),
 
-  // Vpn
+  // 6. VPN
   ProjectUtils(
       images: [
         "assets/11-portrait.png",
@@ -250,7 +520,7 @@ Clean Architecture – Used Bloc for state separation, UI logic, and maintainabi
 This project demonstrates my strength in crafting high-quality UI for utility apps like VPNs, with performance, scalability, and design consistency at its core.""",
       projectLink: 'https://github.com/Tapendra-Bista/vpn'),
 
-  // ShopKing
+  // 7. ShopKing
   ProjectUtils(
       images: [
         "assets/3705526767cb-portrait.png",
@@ -281,60 +551,5 @@ Payment & Order Flow Updates – Enhanced checkout and cart experience as part o
 This project reflects my experience in maintaining, extending, and customizing existing Flutter apps to meet specific business and branding goals.""",
       projectLink: 'https://github.com/Tapendra-Bista/Shopeking'),
 
-  // translation
-  ProjectUtils(
-      images: [
-        "assets/t1-portrait.png",
-        "assets/t2-portrait.png",
-        "assets/t3-portrait.png",
-        "assets/t4-portrait.png",
-        "assets/t5-portrait.png",
-        "assets/t6-portrait.png",
-      ],
-      title: 'Language Translator – Multi-Mode Translation App',
-      subtitle: """Description:
-Language Translator is a powerful and user-friendly Flutter application designed to handle multi-language communication across various modes. It supports voice-to-text, text-to-voice, image-based translation (camera scan), and text translation between 100+ languages.
 
-The app delivers a seamless user experience with a responsive UI and smooth performance, using Bloc for scalable state management and Flutter best practices for clean architecture.
-
-Key Features:
-🎙️ Voice-to-Text Translation – Convert spoken words into text and translate them in real-time.
-🔊 Text-to-Speech (TTS) – Read translated output aloud using native TTS via flutter_tts.
-🌐 Multi-language Support – Translates between a wide range of global languages using google_mlkit_translation.
-📷 Camera Scan Translation – Use device camera to extract and translate text from images.
-💾 Save Favorites – Users can store frequently used translations locally for offline access.
-📱 Responsive Design – UI built with flutter_screenutil for consistent appearance on all devices.
-⚙️ State Management – Implemented using Bloc for separation of UI and logic layers.
-
-This app showcases my ability to integrate MLKit, handle multimodal input/output, and build high-utility mobile tools using Flutter.""",
-      projectLink: 'https://github.com/Tapendra-Bista/Translation'),
-
-  // translation
-  ProjectUtils(
-      images: [
-        "assets/v1.png",
-        "assets/v2.png",
-        "assets/v3.png",
-        "assets/v4.png",
-        "assets/v5.png",
-        "assets/v6.png",
-        "assets/v7.png",
-      ],
-      title: 'Video Player App – Local Media Playback',
-      subtitle: """Description:
-This is a custom-built Video Player Application for local storage videos, offering a smooth and feature-rich playback experience. The app supports theme switching (light/dark), loop settings, and Picture-in-Picture (PiP) mode for multitasking.
-
-The app is built using Flutter with a focus on user experience, performance, and maintainable architecture. The core video playback functionality is powered by the Chewie package, providing a flexible and native-like video experience.
-
-Key Features:
-🎥 Local Video Playback – Plays videos stored on the user’s device with full media controls.
-🔍 Filter Functionality – Filter videos by duration, title, or other metadata for easy access.
-🌙 Light & Dark Theme Support – Seamless toggle between light and dark modes.
-🔁 Looping Option – Enable or disable continuous video playback with a simple setting.
-📺 Picture-in-Picture (PiP) Mode – Watch videos while using other apps (where supported).
-🎛️ Chewie Integration – Used for customizable and smooth video player UI.
-📱 Responsive Layout – Designed using flutter_screenutil for adaptive sizing across screen sizes.
-
-This project demonstrates my expertise in media handling, state management, and responsive UI design in Flutter, along with implementing advanced features like PiP and filtering logic.""",
-      projectLink: 'https://github.com/Tapendra-Bista/video-player'),
 ];

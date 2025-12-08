@@ -216,7 +216,7 @@ class _MainDesktopState extends State<MainDesktop>
                           color: CustomColor.bgLight2,
                           borderRadius: BorderRadius.circular(26),
                           image: const DecorationImage(
-                            image: AssetImage("assets/avatar.png"),
+                            image: AssetImage("assets/avatar.jpg"),
                             fit: BoxFit.cover,
                           ),
                         ),

@@ -79,7 +79,7 @@ class _MainMobileState extends State<MainMobile>
                     color: CustomColor.bgLight2,
                     borderRadius: BorderRadius.circular(21),
                     image: const DecorationImage(
-                      image: AssetImage("assets/avatar.png"),
+                      image: AssetImage("assets/avatar.jpg"),
                       fit: BoxFit.cover,
                     ),
                   ),
