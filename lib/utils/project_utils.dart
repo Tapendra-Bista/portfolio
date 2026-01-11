@@ -25,7 +25,6 @@ List<ProjectUtils> workProjectUtils = [
         'assets/map6.png',
         'assets/map7.png',
         'assets/map2.png',
-        'assets/map9.png',
         'assets/map1.png',
       ],
       title: '🗺️ Real-Time Turn-by-Turn Navigation Engine in Flutter',
