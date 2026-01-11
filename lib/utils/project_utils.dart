@@ -15,7 +15,245 @@ class ProjectUtils {
 // WORK PROJECTS
 
 List<ProjectUtils> workProjectUtils = [
-  // 1. HamroBike
+  // 1. Real-Time Navigation App
+  ProjectUtils(
+      images: [
+        'assets/map3.png',
+        'assets/map4.png',
+        'assets/map8.png',
+        'assets/map5.png',
+        'assets/map6.png',
+        'assets/map7.png',
+        'assets/map2.png',
+        'assets/map9.png',
+        'assets/map1.png',
+      ],
+      title: '🗺️ Real-Time Turn-by-Turn Navigation Engine in Flutter',
+      subtitle: """Platform: Flutter 3.10+ (Cross-platform)
+Type: Navigation & Geospatial Application
+Status: Production-Ready
+
+
+Project Overview:
+Building a Real-Time Turn-by-Turn Navigation Engine in Flutter 🗺️🧭
+
+Maps are easy. Navigation is hard. I've just completed a full-featured Navigation App that handles everything from route planning to real-time 3D GPS guidance.
+
+The goal was to create a fluid, native-like experience that rivals dedicated navigation devices, using Google Maps Platform and Geoapify.
+
+
+🚀 Core Technical Features:
+
+3D Navigation View:
+   • Implemented a dynamic 60° tilted camera angle with bearing rotation
+   • Real-time camera follows user's movement and direction
+   • Smooth camera transitions during navigation
+   • Automatic zoom adjustments based on speed and road type
+   • Custom map styling optimized for navigation visibility
+
+Intelligent Routing:
+   • Integrated multi-modal transport logic (Driving, Walking, Cycling)
+   • Live ETA calculations with traffic consideration
+   • Dynamic distance calculations updated in real-time
+   • Alternative route suggestions
+   • Route optimization algorithms
+   • Support for waypoints and multi-stop navigation
+
+Dynamic Visualization:
+   • Built custom polyline system distinguishing:
+     - Traveled path (light blue) showing where user has been
+     - Remaining path (bright blue) showing route ahead
+   • Real-time polyline updates as user progresses
+   • Visual feedback for route changes
+   • Smooth polyline animations during navigation
+   • Color-coded paths for different travel modes
+
+Smart Arrival Logic:
+   • Developed geofencing system for destination detection
+   • Automatically detects when user is within 20 meters of destination
+   • Arrival notifications and confirmation dialogs
+   • Parking assistance for final approach
+   • Journey summary with statistics
+
+Clean UI Transitions:
+   • Interface automatically simplifies during navigation
+   • Search bars and non-essential UI elements hide when navigating
+   • Focus-only guidance mode minimizes distraction
+   • Quick-access controls for essential functions
+   • Emergency controls always accessible
+   • Smooth state transitions between modes
+
+
+🛠️ Tech Stack & Implementation:
+
+Framework & Core:
+   • Flutter 3.10+ with latest Dart SDK
+   • Material Design 3 with custom navigation-focused UI
+   • Responsive layouts using flutter_screenutil
+   • Custom widget library for map controls
+   • Platform-specific optimizations for iOS/Android
+
+APIs & Services:
+   • Google Maps SDK (Android/iOS) for map rendering
+   • Google Directions API for route calculation
+   • Geoapify Routing API for alternative routing
+   • Places API for location search and autocomplete
+   • Geocoding API for address resolution
+
+Location & Sensors:
+   • Geolocator for high-accuracy GPS tracking
+   • Continuous location updates during navigation
+   • Bearing/heading detection from device compass
+   • Speed calculation and monitoring
+   • Distance tracking algorithms
+   • Background location tracking support
+
+Environment & Security:
+   • Secure API management using .env configurations
+   • API key protection and rate limiting
+   • Environment-based configuration (dev/prod)
+   • Secure credential storage
+
+
+📁 Architecture & Code Structure:
+
+Clean Architecture Implementation:
+lib/
+├── core/
+│   ├── constants/
+│   │   ├── map_constants.dart       # Map configuration values
+│   │   └── navigation_constants.dart # Navigation thresholds
+│   ├── utils/
+│   │   ├── distance_calculator.dart  # Haversine formula impl
+│   │   ├── bearing_calculator.dart   # Direction calculations
+│   │   └── route_optimizer.dart      # Path optimization
+│   └── theme/
+│       └── navigation_theme.dart     # Custom dark theme for maps
+├── features/
+│   ├── map/
+│   │   ├── presentation/
+│   │   │   ├── screens/
+│   │   │   │   ├── map_home_screen.dart
+│   │   │   │   └── navigation_screen.dart
+│   │   │   └── widgets/
+│   │   │       ├── map_controls.dart
+│   │   │       ├── route_info_card.dart
+│   │   │       └── navigation_header.dart
+│   │   ├── domain/
+│   │   │   ├── models/
+│   │   │   │   ├── location.dart
+│   │   │   │   ├── route.dart
+│   │   │   │   └── navigation_state.dart
+│   │   │   └── usecases/
+│   │   │       ├── calculate_route.dart
+│   │   │       └── track_navigation.dart
+│   │   └── data/
+│   │       ├── repositories/
+│   │       │   └── map_repository.dart
+│   │       └── services/
+│   │           ├── google_maps_service.dart
+│   │           └── geoapify_service.dart
+│   └── search/
+│       ├── presentation/
+│       │   └── widgets/
+│       │       └── place_search_bar.dart
+│       └── domain/
+│           └── models/
+│               └── place_suggestion.dart
+└── services/
+    ├── location_service.dart         # GPS service wrapper
+    ├── navigation_service.dart       # Core navigation logic
+    └── polyline_service.dart         # Route visualization
+
+
+💡 Key Technical Achievements:
+
+Real-Time State Synchronization:
+   • Efficient stream-based location updates
+   • Minimal battery drain with smart location interval management
+   • Synchronized camera movement with location changes
+   • Predictive camera positioning for smooth UX
+   • State management optimized for frequent updates
+
+Geospatial Programming:
+   • Implemented Haversine formula for accurate distance calculation
+   • Bearing calculation between two coordinates
+   • Polyline decoding from encoded route strings
+   • Coordinate interpolation for smooth path rendering
+   • Proximity detection algorithms for waypoints
+
+Performance Optimization:
+   • Debounced map camera updates to prevent jank
+   • Lazy loading for route details
+   • Efficient polyline rendering with point reduction
+   • Memory-efficient location history management
+   • Background processing for route calculations
+
+Error Handling & Edge Cases:
+   • GPS signal loss handling with user notifications
+   • Offline mode with cached map tiles
+   • Rerouting when user deviates from path
+   • Network failure resilience
+   • Permission handling (location, notifications)
+
+
+🎯 Use Cases & Applications:
+
+Target Applications:
+   • Food delivery apps (Uber Eats, DoorDash style)
+   • Ride-sharing platforms (Uber, Lyft navigation)
+   • Logistics and courier services
+   • Personal travel and tourism apps
+   • Fleet management systems
+   • Emergency services routing
+
+Real-World Impact:
+   ✓ Turn-by-turn guidance reduces driver distraction
+   ✓ Multi-modal support encourages sustainable transport
+   ✓ Real-time ETA builds user trust
+   ✓ Accurate location tracking improves service efficiency
+
+
+🔮 Future Enhancements:
+
+Phase 2 Features:
+   🚦 Traffic-aware routing with live updates
+   🗣️ Voice-guided navigation ("Turn left in 200m")
+   📍 Multi-stop route planning
+   🌙 Automatic day/night map theming
+   ⚡ Offline maps with downloaded regions
+   📊 Journey analytics and history
+   🔔 Proactive rerouting suggestions
+   🛑 Points of interest along route
+   🎨 Customizable map styles
+   📱 Android Auto / CarPlay integration
+
+
+🏆 Technical Highlights:
+
+What Makes This Project Special:
+   • Deep integration with Google Maps and Geoapify APIs
+   • Complex real-time calculations performed efficiently
+   • Smooth 60 FPS camera animations during navigation
+   • Battery-optimized location tracking
+   • Production-ready error handling
+   • Clean, maintainable architecture following SOLID principles
+   • Extensive use of Flutter's animation framework
+   • Custom map controls and UI overlays
+
+
+This project demonstrates my expertise in:
+   ✓ Geospatial programming and coordinate mathematics
+   ✓ Real-time data synchronization and stream management
+   ✓ Complex API integration (Google Maps, Geoapify)
+   ✓ High-performance Flutter UI with smooth animations
+   ✓ Location services and GPS tracking
+   ✓ Clean architecture and scalable code structure
+   ✓ Production-ready mobile application development
+   ✓ User-centric design for critical use cases like navigation""",
+      projectLink: 'https://github.com/Tapendra-Bista/map-Live-Tracking'),
+
+  // 2. HamroBike
   ProjectUtils(
       images: [
         'assets/bike1.png',
@@ -550,6 +788,4 @@ Localization Setup – Implemented base structure for multi-language support (if
 Payment & Order Flow Updates – Enhanced checkout and cart experience as part of usability upgrades.
 This project reflects my experience in maintaining, extending, and customizing existing Flutter apps to meet specific business and branding goals.""",
       projectLink: 'https://github.com/Tapendra-Bista/Shopeking'),
-
-
 ];
