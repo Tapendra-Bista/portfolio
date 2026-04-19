@@ -229,7 +229,31 @@ class _MainDesktopState extends State<MainDesktop>
           ),
           const SizedBox(height: 5),
           showAboutMe == true
-              ? const Text(AppStrings.aboutMe)
+              ? Container(
+                  constraints: const BoxConstraints(maxWidth: 980),
+                  padding: const EdgeInsets.all(22),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        CustomColor.bgLight1.withValues(alpha: 0.85),
+                        CustomColor.bgLight2.withValues(alpha: 0.78),
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                      color: CustomColor.accentBlue.withValues(alpha: 0.3),
+                    ),
+                  ),
+                  child: const Text(
+                    AppStrings.aboutMe,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      color: CustomColor.whitePrimary,
+                      fontSize: 15,
+                      height: 1.65,
+                    ),
+                  ),
+                )
               : const SizedBox(),
           const SizedBox(height: 13),
         ],

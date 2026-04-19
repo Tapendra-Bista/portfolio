@@ -13,10 +13,12 @@ class ProjectCardWidget extends StatefulWidget {
     super.key,
     required this.project,
     required this.constraints,
+    required this.parentScrollController,
   });
 // galaxy s21
   final ProjectUtils project;
   final BoxConstraints constraints;
+  final ScrollController parentScrollController;
   @override
   State<ProjectCardWidget> createState() => _ProjectCardWidgetState();
 }
@@ -25,298 +27,361 @@ class _ProjectCardWidgetState extends State<ProjectCardWidget> {
   bool showInformation = false;
   bool _isHovered = false;
 
+  void _showImagePreview(String imagePath) {
+    showDialog<void>(
+      context: context,
+      barrierColor: CustomColor.scaffoldBg.withValues(alpha: 0.92),
+      builder: (_) => Dialog.fullscreen(
+        backgroundColor: CustomColor.scaffoldBg,
+        child: Stack(
+          children: [
+            Center(
+              child: InteractiveViewer(
+                minScale: 1,
+                maxScale: 4,
+                child: Image.asset(
+                  imagePath,
+                  fit: BoxFit.contain,
+                  filterQuality: FilterQuality.high,
+                ),
+              ),
+            ),
+            Positioned(
+              top: 14,
+              right: 14,
+              child: IconButton(
+                tooltip: 'Close',
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 28,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     (widget.constraints.maxWidth >= kMedDesktopWidth)
         ? showInformation = false
         : null;
-    return MouseRegion(
-      onEnter: (_) => setState(() => _isHovered = true),
-      onExit: (_) => setState(() => _isHovered = false),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        transform: _isHovered
-            ? Matrix4.diagonal3Values(1.02, 1.02, 1.0)
-            : Matrix4.identity(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            (widget.constraints.maxWidth >= kMedDesktopWidth)
-                ? Container(
-                    clipBehavior: Clip.antiAlias,
-                    width: 500,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        bottomLeft: Radius.circular(20),
+    return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        final position = widget.parentScrollController.position;
+        final nextOffset = (position.pixels - details.delta.dy).clamp(
+          position.minScrollExtent,
+          position.maxScrollExtent,
+        );
+        widget.parentScrollController.jumpTo(nextOffset.toDouble());
+      },
+      child: MouseRegion(
+        onEnter: (_) => setState(() => _isHovered = true),
+        onExit: (_) => setState(() => _isHovered = false),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          transform: _isHovered
+              ? Matrix4.diagonal3Values(1.02, 1.02, 1.0)
+              : Matrix4.identity(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              (widget.constraints.maxWidth >= kMedDesktopWidth)
+                  ? Container(
+                      clipBehavior: Clip.antiAlias,
+                      width: 500,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            CustomColor.bgLight2,
+                            CustomColor.bgLight1,
+                          ],
+                        ),
+                        boxShadow: _isHovered
+                            ? [
+                                BoxShadow(
+                                  color: CustomColor.accentBlue
+                                      .withValues(alpha: 0.3),
+                                  blurRadius: 20,
+                                  spreadRadius: 5,
+                                ),
+                              ]
+                            : [],
                       ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          CustomColor.bgLight2,
-                          CustomColor.bgLight1,
-                        ],
-                      ),
-                      boxShadow: _isHovered
-                          ? [
-                              BoxShadow(
-                                color: CustomColor.accentBlue
-                                    .withValues(alpha: 0.3),
-                                blurRadius: 20,
-                                spreadRadius: 5,
-                              ),
-                            ]
-                          : [],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        SizedBox(
-                          height: 570,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Center(
-                                    child: Text(
-                                      widget.project.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: CustomColor.whitePrimary,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        12, 20, 12, 0),
-                                    child: Text(
-                                      widget.project.subtitle,
-                                      style: const TextStyle(
-                                        overflow: TextOverflow.ellipsis,
-                                        fontSize: 13,
-                                        color: CustomColor.whitePrimary,
-                                      ),
-                                      maxLines: 24,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                color: CustomColor.bgLight1,
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 5),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SizedBox(
+                            height: 570,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Available on:",
-                                      style: TextStyle(
-                                        color: CustomColor.yellowSecondary,
-                                        fontSize: 14,
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Center(
+                                      child: Text(
+                                        widget.project.title,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: CustomColor.whitePrimary,
+                                        ),
                                       ),
                                     ),
-                                    SizedBox(width: 10),
-                                    IconButton(
-                                      onPressed: () async {
-                                        if (widget.project.projectLink !=
-                                            null) {
-                                          await _urlLaunchar(
-                                              url: widget.project.projectLink!);
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(const SnackBar(
-                                                  behavior:
-                                                      SnackBarBehavior.floating,
-                                                  backgroundColor:
-                                                      CustomColor.scaffoldBg,
-                                                  content: Center(
-                                                    child: Text(
-                                                      "Something went wrong !",
-                                                      style: TextStyle(
-                                                          color: CustomColor
-                                                              .whitePrimary),
-                                                    ),
-                                                  )));
-                                        }
-                                      },
-                                      icon: Image.asset(
-                                        "assets/github.png",
-                                        width: 28,
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12, 20, 12, 0),
+                                      child: Text(
+                                        widget.project.subtitle,
+                                        style: const TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 13,
+                                          color: CustomColor.whitePrimary,
+                                        ),
+                                        maxLines: 24,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        // // project image
-                      ],
-                    ),
-                  )
-                : SizedBox.shrink(),
-            Container(
-              clipBehavior: Clip.antiAlias,
-              width: (widget.constraints.maxWidth >= kMedDesktopWidth)
-                  ? 400
-                  : (widget.constraints.maxWidth < 400
-                      ? widget.constraints.maxWidth * 0.85
-                      : 300),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                    bottomLeft:
-                        (widget.constraints.maxWidth >= kMedDesktopWidth)
-                            ? Radius.zero
-                            : Radius.circular(20),
-                    topLeft: (widget.constraints.maxWidth >= kMedDesktopWidth)
-                        ? Radius.zero
-                        : Radius.circular(20)),
-                gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: [
-                    CustomColor.bgLight1,
-                    CustomColor.bgLight2,
-                  ],
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  (widget.constraints.maxWidth >= kMedDesktopWidth)
-                      ? SizedBox.shrink()
-                      : Align(
-                          alignment: Alignment.topRight,
-                          child: IconButton(
-                              onPressed: () => setState(() {
-                                    showInformation = !showInformation;
-                                  }),
-                              icon: Icon(showInformation
-                                  ? Icons.close_outlined
-                                  : Icons.info_outline)),
-                        ),
-                  if (showInformation)
-                    SizedBox(
-                      height: widget.constraints.maxWidth >= kMedDesktopWidth
-                          ? 570
-                          : (widget.constraints.maxWidth < 400 ? 450 : 520),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Center(
-                                    child: Text(
-                                      widget.project.title,
-                                      style: const TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        color: CustomColor.whitePrimary,
+                                Container(
+                                  color: CustomColor.bgLight1,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 5),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Available on:",
+                                        style: TextStyle(
+                                          color: CustomColor.yellowSecondary,
+                                          fontSize: 14,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.fromLTRB(
-                                        12, 20, 12, 12),
-                                    child: Text(
-                                      widget.project.subtitle,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: CustomColor.whiteSecondary,
+                                      SizedBox(width: 10),
+                                      IconButton(
+                                        onPressed: () async {
+                                          if (widget.project.projectLink !=
+                                              null) {
+                                            await _urlLaunchar(
+                                                url: widget
+                                                    .project.projectLink!);
+                                          } else {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(const SnackBar(
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    backgroundColor:
+                                                        CustomColor.scaffoldBg,
+                                                    content: Center(
+                                                      child: Text(
+                                                        "Something went wrong !",
+                                                        style: TextStyle(
+                                                            color: CustomColor
+                                                                .whitePrimary),
+                                                      ),
+                                                    )));
+                                          }
+                                        },
+                                        icon: Image.asset(
+                                          "assets/github.png",
+                                          width: 28,
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Container(
-                            color: CustomColor.bgLight1,
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Available on:",
-                                  style: TextStyle(
-                                    color: CustomColor.yellowSecondary,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                                SizedBox(width: 10),
-                                IconButton(
-                                  onPressed: () async {
-                                    if (widget.project.projectLink != null) {
-                                      await _urlLaunchar(
-                                          url: widget.project.projectLink!);
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(const SnackBar(
-                                              behavior:
-                                                  SnackBarBehavior.floating,
-                                              backgroundColor:
-                                                  CustomColor.scaffoldBg,
-                                              content: Center(
-                                                child: Text(
-                                                  "Something went wrong !",
-                                                  style: TextStyle(
-                                                      color: CustomColor
-                                                          .whitePrimary),
-                                                ),
-                                              )));
-                                    }
-                                  },
-                                  icon: Image.asset(
-                                    "assets/github.png",
-                                    width: 28,
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
                           ),
+
+                          // // project image
                         ],
                       ),
-                    ),
-
-                  if (!showInformation)
-                    CarouselSlider(
-                      options: CarouselOptions(
-                        enlargeCenterPage:
-                            true, // Don't enlarge the center image
-                        // Each item takes 50% of the width
-                        height: 570, autoPlay: true,
+                    )
+                  : SizedBox.shrink(),
+              Container(
+                clipBehavior: Clip.antiAlias,
+                width: (widget.constraints.maxWidth >= kMedDesktopWidth)
+                    ? 400
+                    : (widget.constraints.maxWidth < 400
+                        ? widget.constraints.maxWidth * 0.85
+                        : 300),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20),
+                      bottomRight: Radius.circular(20),
+                      bottomLeft:
+                          (widget.constraints.maxWidth >= kMedDesktopWidth)
+                              ? Radius.zero
+                              : Radius.circular(20),
+                      topLeft: (widget.constraints.maxWidth >= kMedDesktopWidth)
+                          ? Radius.zero
+                          : Radius.circular(20)),
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [
+                      CustomColor.bgLight1,
+                      CustomColor.bgLight2,
+                    ],
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    (widget.constraints.maxWidth >= kMedDesktopWidth)
+                        ? SizedBox.shrink()
+                        : Align(
+                            alignment: Alignment.topRight,
+                            child: IconButton(
+                                onPressed: () => setState(() {
+                                      showInformation = !showInformation;
+                                    }),
+                                icon: Icon(showInformation
+                                    ? Icons.close_outlined
+                                    : Icons.info_outline)),
+                          ),
+                    if (showInformation)
+                      SizedBox(
+                        height: widget.constraints.maxWidth >= kMedDesktopWidth
+                            ? 570
+                            : (widget.constraints.maxWidth < 400 ? 450 : 520),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Center(
+                                      child: Text(
+                                        widget.project.title,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          color: CustomColor.whitePrimary,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          12, 20, 12, 12),
+                                      child: Text(
+                                        widget.project.subtitle,
+                                        style: const TextStyle(
+                                          fontSize: 13,
+                                          color: CustomColor.whiteSecondary,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              color: CustomColor.bgLight1,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Available on:",
+                                    style: TextStyle(
+                                      color: CustomColor.yellowSecondary,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  SizedBox(width: 10),
+                                  IconButton(
+                                    onPressed: () async {
+                                      if (widget.project.projectLink != null) {
+                                        await _urlLaunchar(
+                                            url: widget.project.projectLink!);
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                behavior:
+                                                    SnackBarBehavior.floating,
+                                                backgroundColor:
+                                                    CustomColor.scaffoldBg,
+                                                content: Center(
+                                                  child: Text(
+                                                    "Something went wrong !",
+                                                    style: TextStyle(
+                                                        color: CustomColor
+                                                            .whitePrimary),
+                                                  ),
+                                                )));
+                                      }
+                                    },
+                                    icon: Image.asset(
+                                      "assets/github.png",
+                                      width: 28,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      items: widget.project.images.map((i) {
-                        return Image.asset(
-                          i,
-                          height: double.maxFinite,
-                          width: double.maxFinite,
-                        );
-                      }).toList(),
-                    ),
 
-                  // // project image
-                ],
-              ),
-            )
-          ],
+                    if (!showInformation)
+                      CarouselSlider(
+                        options: CarouselOptions(
+                          enlargeCenterPage: false,
+                          height: 570,
+                          autoPlay: true,
+                          viewportFraction: 1,
+                          autoPlayInterval: const Duration(seconds: 3),
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 700),
+                          pauseAutoPlayOnTouch: true,
+                        ),
+                        items: widget.project.images.map((i) {
+                          return InkWell(
+                            onTap: () => _showImagePreview(i),
+                            child: Container(
+                              color: CustomColor.scaffoldBg,
+                              alignment: Alignment.center,
+                              child: Image.asset(
+                                i,
+                                height: double.maxFinite,
+                                width: double.maxFinite,
+                                fit: BoxFit.contain,
+                                filterQuality: FilterQuality.high,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                      ),
+
+                    // // project image
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

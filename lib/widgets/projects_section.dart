@@ -7,14 +7,35 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../constants/colors.dart';
 
 class ProjectsSection extends StatefulWidget {
-  const ProjectsSection({super.key, required this.constraints});
+  const ProjectsSection({
+    super.key,
+    required this.constraints,
+    required this.parentScrollController,
+  });
   final BoxConstraints constraints;
+  final ScrollController parentScrollController;
   @override
   State<ProjectsSection> createState() => _ProjectsSectionState();
 }
 
 class _ProjectsSectionState extends State<ProjectsSection> {
-  final PageController _pageController = PageController();
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(
+      viewportFraction:
+          widget.constraints.maxWidth >= kMedDesktopWidth ? 0.92 : 0.96,
+    );
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -61,13 +82,16 @@ class _ProjectsSectionState extends State<ProjectsSection> {
             height:
                 (widget.constraints.maxWidth >= kMedDesktopWidth) ? 570 : 610,
             child: PageView.builder(
-              physics: BouncingScrollPhysics(),
+              physics: const PageScrollPhysics(),
+              pageSnapping: true,
+              padEnds: true,
               controller:
                   _pageController, // Crucial: Link controller to PageView
               itemCount: workProjectUtils.length,
               itemBuilder: (context, index) {
                 return ProjectCardWidget(
                   constraints: widget.constraints,
+                  parentScrollController: widget.parentScrollController,
                   project: workProjectUtils[index],
                 );
               },

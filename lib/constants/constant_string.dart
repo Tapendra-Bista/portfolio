@@ -1,10 +1,10 @@
 abstract class AppStrings {
   static const String aboutMe =
-      """Hi! I'm Tapendra Bista, a passionate Flutter Developer specializing in crafting elegant, high-performance mobile applications for Android and iOS. With expertise in modern state management using flutter_bloc and Cubit, I build scalable, maintainable apps that deliver exceptional user experiences.
+      """I am Tapendra Bista, a Flutter Developer focused on building fast, reliable, and user-friendly applications for Android, iOS, and Web.
 
-My technical toolkit includes Dio for seamless API integration, flutter_screenutil for pixel-perfect responsive designs, and Freezed for type-safe, immutable data models. I've successfully delivered multiple freelance projects, transforming ideas into polished products from initial UI/UX design through backend integration and deployment.
+I work across the full product cycle: planning features, designing clean UI, integrating APIs, implementing state management, and delivering production-ready releases. My preferred stack includes Flutter, Dart, BLoC/Cubit, Firebase, REST APIs, and responsive architecture.
 
-I thrive on solving complex challenges and stay current with the latest Flutter innovations. Whether it's implementing clean architecture, integrating Firebase services, or optimizing app performance, I'm committed to writing code that's not just functional, but beautiful and maintainable. Let's build something amazing together!""";
+I care about code quality, performance, and long-term maintainability. I enjoy turning complex ideas into simple experiences and shipping products that feel polished in real-world use. I am currently open to impactful freelance and full-time opportunities where I can contribute, grow, and build meaningful digital products.""";
 
   static const String education =
       "\n\n\nBachelor of Science in Computer Science and Information Technology (BSc CSIT) at Amrit Campus.";
